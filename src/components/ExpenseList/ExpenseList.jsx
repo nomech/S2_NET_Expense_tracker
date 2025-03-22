@@ -1,10 +1,19 @@
+import ExpenseCard from "../ExpenseCard/ExpenseCard";
 
-import React from 'react'
+import React from "react";
 
-const ExpenseList = () => {
+const ExpenseList = ({ data }) => {
+  console.log(data);
+  
   return (
-    <div>ExpenseList</div>
-  )
-}
+    <div>
+      {data &&
+        data.map((expense) => {
+          
+          <ExpenseCard expense={expense} key={expense.id} />;
+        })}
+    </div>
+  );
+};
 
-export default ExpenseList
+export default ExpenseList;

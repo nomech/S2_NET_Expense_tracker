@@ -1,6 +1,11 @@
 .banner {
   display: flex;
   justify-content: center;
-  align-self: center;
-  width: 900px;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  flex-flow: 1;
+  background-color: rgb(43, 122, 226);
+  color: #ffffff;
+  flex-direction: column;
 }

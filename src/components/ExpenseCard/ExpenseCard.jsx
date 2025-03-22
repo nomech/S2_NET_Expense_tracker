@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
-const ExpenseCard = () => {
+const ExpenseCard = ({ expense }) => {
+  console.log(expense);
+
   return (
-    <div>ExpenseCard</div>
-  )
-}
+    <div>
+{/*       <p>{expense.title}</p>
+      <p>{expense.amount}</p>
+      <p>{expense.date}</p>
+      <p>{expense.category}</p> */}
+    </div>
+  );
+};
 
-export default ExpenseCard
+export default ExpenseCard;
