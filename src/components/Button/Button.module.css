@@ -1,0 +1,29 @@
+.default {
+  width: 86px;
+  height: 36px;
+  border: 1px solid #185dc1;
+  background-color: #0b1222;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ffffff;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.default:hover {
+  background-color: #185dc1;
+}
+
+.edit:hover {
+  background-color: #185dc1;
+  border: none;
+}
+
+.delete:hover {
+  background-color: #fb4c59;
+  border: none;
+}
+
+.cancel {
+  background-color: #6c757d;
+}
