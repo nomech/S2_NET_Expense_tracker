@@ -1,0 +1,14 @@
+.modal {
+  position: absolute;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.335);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+}
+
+.form {
+  background-color: #0b1222;
+}

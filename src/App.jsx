@@ -2,8 +2,12 @@ import "./App.css";
 import Banner from "./components/Banner/Banner";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
 import TotalExpenseCard from "./components/totalExpenseCard/totalExpenseCard";
+import Modal from "./components/Modal/Modal";
+import { useState } from "react";
 
 function App() {
+  const [showModal, setShowModal] = useState(false);
+
   const data = [
     {
       id: 1,
@@ -42,6 +46,14 @@ function App() {
     },
   ];
 
+  const handleOpenModal = () => {
+    !showModal ? setShowModal(true) : null;
+  };
+
+  const handleCloseModal = () => {
+    showModal ? setShowModal(false) : null;
+  };
+
   return (
     <>
       <Banner
@@ -49,7 +61,8 @@ function App() {
         subtext={"It's tracking time!"}
       />
       <TotalExpenseCard data={data} />
-      <ExpenseList data={data} />
+      <ExpenseList data={data} handleOpenModal={handleOpenModal} />
+      {showModal && <Modal handleCloseModal={handleCloseModal} />}
     </>
   );
 }

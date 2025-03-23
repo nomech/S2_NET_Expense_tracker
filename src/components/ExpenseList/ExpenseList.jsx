@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+  import React, { useState } from "react";
 import ExpenseCard from "../ExpenseCard/ExpenseCard";
+import Button from "../Button/Button";
 import styles from "./ExpenseList.module.css";
 
-const ExpenseList = ({ data }) => {
+const ExpenseList = ({ data, handleOpenModal, handleCloseModal }) => {
   const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
 
@@ -34,6 +35,12 @@ const ExpenseList = ({ data }) => {
 
   return (
     <div className={styles.expenseList}>
+      <div className={styles.listPanel}>
+        <Button handleAction={handleCloseModal}>Add</Button>
+        <Button handleAction={handleOpenModal} type="add">
+          + New Expense
+        </Button>
+      </div>
       <div className={styles.listHeader}>
         <p
           className={styles.column}
