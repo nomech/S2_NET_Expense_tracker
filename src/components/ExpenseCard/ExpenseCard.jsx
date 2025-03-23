@@ -16,8 +16,8 @@ const ExpenseCard = ({ expense }) => {
       <p>{expense.date}</p>
       <p>{expense.category}</p>
       <div className={styles.buttonGroup}>
-        <Button type={"edit"}> Edit </Button>
-        <Button type={"delete"}> Delete </Button>
+        <Button type={"edit"}> 📝 Edit </Button>
+        <Button type={"delete"}> 🗑️ Delete  </Button>
       </div>
     </div>
   );

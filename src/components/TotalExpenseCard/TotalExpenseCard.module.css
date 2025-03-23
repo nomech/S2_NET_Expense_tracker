@@ -1,0 +1,9 @@
+.totalExpense {
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 4rem;
+  border: 2px solid #f94c5b;
+  border-radius: 8px;
+  background-color: #111827;
+}

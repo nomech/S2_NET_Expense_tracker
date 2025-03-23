@@ -19,7 +19,10 @@
 .title {
   font-weight: bold;
 }
+
 .buttonGroup {
   display: flex;
   gap: 1rem;
+  place-self: center;
 }
+

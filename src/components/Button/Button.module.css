@@ -1,6 +1,4 @@
 .default {
-  width: 86px;
-  height: 36px;
   border: 1px solid #185dc1;
   background-color: #0b1222;
   font-weight: bold;
@@ -8,6 +6,8 @@
   color: #ffffff;
   border-radius: 16px;
   cursor: pointer;
+  padding: 12px;
+  min-width: 90px;
 }
 
 .default:hover {

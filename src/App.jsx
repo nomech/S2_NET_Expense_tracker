@@ -1,3 +1,4 @@
+import "./App.css";
 import Banner from "./components/Banner/Banner";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
 import TotalExpenseCard from "./components/totalExpenseCard/totalExpenseCard";
@@ -23,7 +24,7 @@ function App() {
       title: "Test data 3",
       amount: 1200,
       date: "2025-03-02",
-      category: "Groceries",
+      category: "groceries",
     },
     {
       id: 4,
