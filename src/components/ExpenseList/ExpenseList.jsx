@@ -35,10 +35,27 @@ const ExpenseList = ({ data }) => {
   return (
     <div className={styles.expenseList}>
       <div className={styles.listHeader}>
-        <p onClick={() => handleSortByColumn("title")}>Title</p>
-        <p onClick={() => handleSortByColumn("amount")}>Amount</p>
-        <p onClick={() => handleSortByColumn("date")}>Date</p>
-        <p onClick={() => handleSortByColumn("category")}>Category</p>
+        <p
+          className={styles.column}
+          onClick={() => handleSortByColumn("title")}
+        >
+          Title
+        </p>
+        <p
+          className={styles.column}
+          onClick={() => handleSortByColumn("amount")}
+        >
+          Amount
+        </p>
+        <p className={styles.column} onClick={() => handleSortByColumn("date")}>
+          Date
+        </p>
+        <p
+          className={styles.column}
+          onClick={() => handleSortByColumn("category")}
+        >
+          Category
+        </p>
         <p>Action</p>
       </div>
       {currentData &&

@@ -1,4 +1,8 @@
 .totalExpense {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
   font-weight: bold;
   text-transform: uppercase;
@@ -6,4 +10,11 @@
   border: 2px solid #f94c5b;
   border-radius: 8px;
   background-color: #111827;
+}
+
+.totalHeading {
+  position: absolute;
+  top: -23px;
+  background-color: inherit;
+  padding: 0.5rem;
 }

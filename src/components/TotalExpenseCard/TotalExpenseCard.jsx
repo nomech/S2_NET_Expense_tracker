@@ -15,7 +15,12 @@ const TotalExpenseCard = ({ data }) => {
     currency: "NOK",
   }).format(calculatedTotalExpense);
 
-  return <div className={styles.totalExpense}>Total: {totalExpense} 💸</div>;
+  return (
+    <div className={styles.totalExpense}>
+      <h2 className={styles.totalHeading}>Total</h2>
+      <p>{totalExpense} 💸</p>
+    </div>
+  );
 };
 
 export default TotalExpenseCard;
