@@ -1,7 +1,15 @@
 import React from "react";
 import styles from "./InputField.module.css";
 
-const InputField = ({ label, type, name, placeholder, handleOnChange }) => {
+const InputField = ({
+  label,
+  type,
+  name,
+  placeholder,
+  handleOnChange,
+  errorMessage,
+  pattern,
+}) => {
   return (
     <div className={styles.formGroup}>
       <label htmlFor="expense">{label}</label>
@@ -12,7 +20,10 @@ const InputField = ({ label, type, name, placeholder, handleOnChange }) => {
         type={type}
         placeholder={placeholder}
         onChange={handleOnChange}
+        pattern={pattern}
+        required
       />
+      <p className={styles.error}>{errorMessage}</p>
     </div>
   );
 };

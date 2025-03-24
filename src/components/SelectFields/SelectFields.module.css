@@ -11,3 +11,7 @@
 .option {
   text-transform: capitalize;
 }
+
+.error {
+  color: #fb4c59;
+}

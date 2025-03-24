@@ -7,3 +7,12 @@
   padding: 0.5rem;
   font-weight: 600;
 }
+
+.error {
+  display: none;
+  color: #fb4c59;
+}
+
+.input:invalid p{
+  display: block;
+}
