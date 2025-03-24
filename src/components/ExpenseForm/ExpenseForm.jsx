@@ -5,11 +5,9 @@ import styles from "./ExpenseForm.module.css";
 import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
 import SelectFields from "../SelectFields/SelectFields";
-import { v6 as uuidv6 } from "uuid";
 
 const ExpenseForm = ({ handleCloseModal, setIsAdding }) => {
   const [formData, setFormData] = useState({
-    id: uuidv6(),
     title: "",
     amount: "",
     date: "",
@@ -30,7 +28,9 @@ const ExpenseForm = ({ handleCloseModal, setIsAdding }) => {
       ? (errors.category = "Please select a category")
       : null;
 
-    data.amount = isNaN(data.amount.trim()) ? data.amount : parseInt(data.amount, 10);
+    data.amount = isNaN(data.amount.trim())
+      ? data.amount
+      : parseInt(data.amount, 10);
     setFormError(errors);
 
     return Object.keys(errors).length === 0;
@@ -40,7 +40,6 @@ const ExpenseForm = ({ handleCloseModal, setIsAdding }) => {
     e.preventDefault();
 
     if (validateSubmission(formData)) {
-      console.log(formData);
       try {
         setIsAdding(true);
         const db = getFirestore(firebaseApp);

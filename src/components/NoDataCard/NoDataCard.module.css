@@ -1,0 +1,7 @@
+.noDataCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  padding: 2rem;
+}

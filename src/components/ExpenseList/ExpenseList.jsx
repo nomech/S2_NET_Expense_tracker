@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import ExpenseCard from "../ExpenseCard/ExpenseCard";
-import Button from "../Button/Button";
 import styles from "./ExpenseList.module.css";
+import NoDataCard from "../NoDataCard/NoDataCard";
+import ExpenseListHeader from "../ExpenseListHeader/ExpenseListHeader";
 
-const ExpenseList = ({ data, handleOpenModal, handleCloseModal }) => {
+const ExpenseList = ({
+  data,
+  handleOpenModal,
+  handleCloseModal,
+  setIsDeleting,
+}) => {
   const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
 
   useEffect(() => {
     setCurrentData(data);
   }, [data]);
-
-  
 
   const handleSortByColumn = (column) => {
     const sortedData = [...currentData].sort((a, b) => {
@@ -41,40 +45,24 @@ const ExpenseList = ({ data, handleOpenModal, handleCloseModal }) => {
 
   return (
     <div className={styles.expenseList}>
-      <div className={styles.listPanel}>
-        <Button handleAction={handleCloseModal}>Add</Button>
-        <Button handleAction={handleOpenModal} type="add">
-          + New Expense
-        </Button>
-      </div>
-      <div className={styles.listHeader}>
-        <p
-          className={styles.column}
-          onClick={() => handleSortByColumn("title")}
-        >
-          Title
-        </p>
-        <p
-          className={styles.column}
-          onClick={() => handleSortByColumn("amount")}
-        >
-          Amount
-        </p>
-        <p className={styles.column} onClick={() => handleSortByColumn("date")}>
-          Date
-        </p>
-        <p
-          className={styles.column}
-          onClick={() => handleSortByColumn("category")}
-        >
-          Category
-        </p>
-        <p>Action</p>
-      </div>
-      {currentData &&
+      <ExpenseListHeader
+        handleCloseModal={handleCloseModal}
+        handleOpenModal={handleOpenModal}
+        handleSortByColumn={handleSortByColumn}
+      />
+      {currentData.length > 0 ? (
         currentData.map((expense) => {
-          return <ExpenseCard expense={expense} key={expense.id} />;
-        })}
+          return (
+            <ExpenseCard
+              expense={expense}
+              key={expense.id}
+              setIsDeleting={setIsDeleting}
+            />
+          );
+        })
+      ) : (
+        <NoDataCard>There are no expenses registred yet</NoDataCard>
+      )}
     </div>
   );
 };

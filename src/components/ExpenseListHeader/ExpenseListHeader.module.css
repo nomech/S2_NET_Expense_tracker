@@ -1,0 +1,30 @@
+.listHeader {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  padding: 0.5rem;
+  border: 1px solid #1f2937;
+  border-radius: 5px;
+  background-color: #1f2937;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.listHeader p:last-child {
+  place-self: center;
+}
+
+.column {
+  cursor: pointer;
+}
+
+.column:hover {
+  color: #fb4c59;
+}
+
+.listPanel {
+  display: flex;
+  justify-content: space-between;
+}
