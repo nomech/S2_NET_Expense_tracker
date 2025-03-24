@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+import firebaseApp from "../../firebaseConfig";
 import styles from "./ExpenseForm.module.css";
 import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
@@ -13,6 +15,7 @@ const ExpenseForm = ({ handleCloseModal }) => {
   });
 
   const [formError, setFormError] = useState({});
+  const [isAdding, setIsAdding] = useState(false);
 
   const validateSubmission = (data) => {
     console.log(data);
@@ -22,13 +25,9 @@ const ExpenseForm = ({ handleCloseModal }) => {
       ? (errors.expense = "You need to give the expense a name")
       : null;
 
-    !data.amount.trim() 
-      ? (errors.amount = "You need to add an amount") 
-      : null;
+    !data.amount.trim() ? (errors.amount = "You need to add an amount") : null;
 
-    !data.date.trim() 
-      ? (errors.date = "Please select a date") 
-      : null;
+    !data.date.trim() ? (errors.date = "Please select a date") : null;
     !data.category.trim()
       ? (errors.category = "Please select a category")
       : null;
@@ -38,12 +37,20 @@ const ExpenseForm = ({ handleCloseModal }) => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateSubmission(formData)) {
-      console.log("submitted", formData);
-      handleCloseModal();
+      try {
+        setIsAdding(true);
+        const db = getFirestore(firebaseApp);
+        await addDoc(collection(db, "expenses"), formData);
+      } catch (error) {
+        console.error("Error adding data to database", error);
+      } finally {
+        setIsAdding(false);
+        handleCloseModal();
+      }
     }
   };
 
@@ -98,8 +105,10 @@ const ExpenseForm = ({ handleCloseModal }) => {
         />
 
         <div className={styles.buttonGroup}>
-          <Button>Add</Button>
-          <Button handleAction={handleCloseModal}>Close</Button>
+          <Button isAdding={isAdding}>Add</Button>
+          <Button handleAction={handleCloseModal} isAdding={isAdding}>
+            Close
+          </Button>
         </div>
       </form>
     </div>
