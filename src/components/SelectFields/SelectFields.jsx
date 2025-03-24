@@ -25,7 +25,7 @@ const SelectFields = ({ name, options, handleOnChange, errorMessage }) => {
             );
           })}
       </select>
-      <p className={styles.error}>{errorMessage}</p>
+      <p className={`${errorMessage ? styles.error : ""}`}>{errorMessage}</p>
     </div>
   );
 };

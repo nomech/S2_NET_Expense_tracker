@@ -9,10 +9,6 @@
 }
 
 .error {
-  display: none;
+  display: flex;
   color: #fb4c59;
-}
-
-.input:invalid p{
-  display: block;
 }
