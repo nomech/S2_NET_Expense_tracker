@@ -1,4 +1,4 @@
-  import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExpenseCard from "../ExpenseCard/ExpenseCard";
 import Button from "../Button/Button";
 import styles from "./ExpenseList.module.css";
@@ -6,6 +6,12 @@ import styles from "./ExpenseList.module.css";
 const ExpenseList = ({ data, handleOpenModal, handleCloseModal }) => {
   const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
+
+  useEffect(() => {
+    setCurrentData(data);
+  }, [data]);
+
+  
 
   const handleSortByColumn = (column) => {
     const sortedData = [...currentData].sort((a, b) => {
