@@ -1,7 +1,13 @@
 import React from "react";
 import styles from "./SelectFields.module.css";
 
-const SelectFields = ({ name, options, handleOnChange, errorMessage }) => {
+const SelectFields = ({
+  name,
+  options,
+  handleOnChange,
+  errorMessage,
+  value = "",
+}) => {
   return (
     <div className={styles.formGroup}>
       <label htmlFor="category">Category</label>
@@ -9,7 +15,7 @@ const SelectFields = ({ name, options, handleOnChange, errorMessage }) => {
         className={styles.input}
         name={name}
         id={name}
-        defaultValue=""
+        defaultValue={value}
         onChange={handleOnChange}
       >
         <option className={styles.option} value="">

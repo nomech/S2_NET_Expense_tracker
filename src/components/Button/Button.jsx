@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./Button.module.css";
 
-const Button = ({ children, handleAction, type = "", isAdding }) => {
+const Button = ({ children, handleAction, type = "", buttonType }) => {
   return (
     <button
-      className={`${styles.default} ${styles[type]} ${
-        isAdding ? styles.isAdding : ""
-      }`}
+      className={`${styles.default} ${styles[type]}}`}
       onClick={handleAction}
+      type={buttonType}
     >
       {children}
     </button>

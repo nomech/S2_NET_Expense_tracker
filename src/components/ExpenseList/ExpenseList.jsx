@@ -4,14 +4,19 @@ import styles from "./ExpenseList.module.css";
 import NoDataCard from "../NoDataCard/NoDataCard";
 import ExpenseListHeader from "../ExpenseListHeader/ExpenseListHeader";
 
-const ExpenseList = ({ data, handleOpenModal, handleCloseModal }) => {
+const ExpenseList = ({
+  data,
+  handleOpenFormModal,
+  handleEditForm,
+  handleCloseModal,
+  setEditData,
+}) => {
   const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
 
   useEffect(() => {
     setCurrentData(data);
   }, [data]);
-
 
   const handleSortByColumn = (column) => {
     const sortedData = [...currentData].sort((a, b) => {
@@ -43,12 +48,19 @@ const ExpenseList = ({ data, handleOpenModal, handleCloseModal }) => {
     <div className={styles.expenseList}>
       <ExpenseListHeader
         handleCloseModal={handleCloseModal}
-        handleOpenModal={handleOpenModal}
+        handleOpenModal={handleOpenFormModal}
         handleSortByColumn={handleSortByColumn}
       />
       {currentData.length > 0 ? (
         currentData.map((expense) => {
-          return <ExpenseCard expense={expense} key={expense.id} />;
+          return (
+            <ExpenseCard
+              expense={expense}
+              key={expense.id}
+              handleEditForm={handleEditForm}
+              setEditData={setEditData}
+            />
+          );
         })
       ) : (
         <NoDataCard>There are no expenses registred yet</NoDataCard>

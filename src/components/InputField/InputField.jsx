@@ -8,6 +8,7 @@ const InputField = ({
   placeholder,
   handleOnChange,
   errorMessage,
+  value = "",
 }) => {
   return (
     <div className={styles.formGroup}>
@@ -19,6 +20,7 @@ const InputField = ({
         type={type}
         placeholder={placeholder}
         onChange={handleOnChange}
+        value={value}
       />
       <p className={`${errorMessage ? styles.error : ""}`}>{errorMessage}</p>
     </div>

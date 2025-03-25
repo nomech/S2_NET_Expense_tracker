@@ -21,6 +21,8 @@ import firebaseApp from "./firebaseConfig";
 function App() {
   const [showExpenseModal, setShowExpenseModal] = useState(false);
   const [dbData, setDbData] = useState([]);
+  const [editData, setEditData] = useState({});
+  const [editMode, SetEditMode] = useState(false);
 
   useEffect(() => {
     const db = getFirestore(firebaseApp);
@@ -41,11 +43,21 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  const handleOpenModal = () => {
+  const handleOpenFormModal = () => {
     !showExpenseModal ? setShowExpenseModal(true) : null;
   };
 
-  const handleCloseModal = () => {
+  const handleEditForm = (data) => {
+    setEditData(data);
+    SetEditMode(true);
+    !showExpenseModal ? setShowExpenseModal(true) : null;
+  };
+
+  const handleCloseFormModal = () => {
+    if (editMode) {
+      setEditData({});
+      SetEditMode(false);
+    }
     showExpenseModal ? setShowExpenseModal(false) : null;
   };
 
@@ -56,8 +68,19 @@ function App() {
         subtext={"It's tracking time!"}
       />
       <TotalExpenseCard data={dbData} />
-      <ExpenseList data={dbData} handleOpenModal={handleOpenModal} />
-      {showExpenseModal && <FormModal handleCloseModal={handleCloseModal} />}
+      <ExpenseList
+        data={dbData}
+        handleOpenFormModal={handleOpenFormModal}
+        handleEditForm={handleEditForm}
+        handleCloseModal={handleCloseFormModal}
+      />
+      {showExpenseModal && (
+        <FormModal
+          handleCloseModal={handleCloseFormModal}
+          editData={editData}
+          editMode={editMode}
+        />
+      )}
     </>
   );
 }

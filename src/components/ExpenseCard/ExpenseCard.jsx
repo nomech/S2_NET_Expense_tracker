@@ -5,7 +5,7 @@ import firebaseApp from "../../firebaseConfig";
 import Button from "../Button/Button";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
-const ExpenseCard = ({ expense }) => {
+const ExpenseCard = ({ expense, handleEditForm }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const amount = new Intl.NumberFormat("no-NB", {
     style: "currency",
@@ -37,7 +37,9 @@ const ExpenseCard = ({ expense }) => {
         <p>{expense.date}</p>
         <p>{expense.category}</p>
         <div className={styles.buttonGroup}>
-          <Button type={"edit"}> 📝 Edit </Button>
+          <Button type={"edit"} handleAction={() => handleEditForm(expense)}>
+            📝 Edit
+          </Button>
           <Button type={"delete"} handleAction={handleOpenConfirmModal}>
             🗑️ Delete
           </Button>

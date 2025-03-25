@@ -4,6 +4,8 @@ import {
   addDoc,
   getFirestore,
   serverTimestamp,
+  doc,
+  updateDoc,
 } from "firebase/firestore";
 import firebaseApp from "../../firebaseConfig";
 import styles from "./ExpenseForm.module.css";
@@ -11,14 +13,8 @@ import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
 import SelectFields from "../SelectFields/SelectFields";
 
-const ExpenseForm = ({ handleCloseModal }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    amount: "",
-    date: "",
-    category: "",
-  });
-
+const ExpenseForm = ({ handleCloseModal, editData = "", editMode }) => {
+  const [formData, setFormData] = useState(editData);
   const [formError, setFormError] = useState({});
 
   const validateSubmission = (data) => {
@@ -27,16 +23,14 @@ const ExpenseForm = ({ handleCloseModal }) => {
     !data.title.trim()
       ? (errors.title = "You need to give the expense a name")
       : null;
-    !data.amount.trim() ? (errors.amount = "You need to add an amount") : null;
+    !data.amount > 0 ? (errors.amount = "You need to add an amount") : null;
     !data.date.trim() ? (errors.date = "Please select a date") : null;
     !data.category.trim()
       ? (errors.category = "Please select a category")
       : null;
-
-    data.amount = isNaN(data.amount.trim())
-      ? data.amount
-      : parseInt(data.amount, 10);
     setFormError(errors);
+
+    data.amount = isNaN(data.amount) ? data.amount : parseInt(data.amount, 10);
 
     return Object.keys(errors).length === 0;
   };
@@ -45,13 +39,26 @@ const ExpenseForm = ({ handleCloseModal }) => {
     e.preventDefault();
 
     if (validateSubmission(formData)) {
-      try {
-        const db = getFirestore(firebaseApp);
-        await addDoc(collection(db, "expenses"), formData);
-      } catch (error) {
-        console.error("Error adding data to database", error);
+      if (!editMode) {
+        try {
+          const db = getFirestore(firebaseApp);
+          await addDoc(collection(db, "expenses"), formData);
+        } catch (error) {
+          console.error("Error adding data to database", error);
+        }
+      } else if (editMode) {
+        console.log("Edit");
+        console.log(editData.id);
+
+        try {
+          const db = getFirestore(firebaseApp);
+          const expenseRef = doc(collection(db, "expenses"), editData.id);
+          await updateDoc(expenseRef, formData);
+        } catch (error) {
+          console.error("Error editing data in database", error);
+        }
+        handleCloseModal();
       }
-      handleCloseModal();
     }
   };
 
@@ -79,6 +86,7 @@ const ExpenseForm = ({ handleCloseModal }) => {
           label="Expense name"
           type="text"
           name="title"
+          value={formData.title}
           placeholder="Name of the expense"
           handleOnChange={handleOnChange}
           errorMessage={formError.title}
@@ -87,6 +95,7 @@ const ExpenseForm = ({ handleCloseModal }) => {
           label="Amount"
           type="number"
           name="amount"
+          value={formData.amount}
           placeholder="ex. 200"
           handleOnChange={handleOnChange}
           errorMessage={formError.amount}
@@ -96,19 +105,27 @@ const ExpenseForm = ({ handleCloseModal }) => {
           label="Date"
           type="date"
           name="date"
+          value={formData.date}
           handleOnChange={handleOnChange}
           errorMessage={formError.date}
         />
         <SelectFields
           name="category"
           options={options}
+          value={formData.category}
           handleOnChange={handleOnChange}
           errorMessage={formError.category}
         />
 
         <div className={styles.buttonGroup}>
-          <Button>Add</Button>
-          <Button handleAction={handleCloseModal}>Close</Button>
+          {editMode ? (
+            <Button buttonType="submit">Confirm</Button>
+          ) : (
+            <Button buttonType="submit">Add</Button>
+          )}
+          <Button buttonType="button" handleAction={handleCloseModal}>
+            Close
+          </Button>
         </div>
       </form>
     </div>
