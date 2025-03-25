@@ -13,24 +13,25 @@ import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
 import SelectFields from "../SelectFields/SelectFields";
 
-const ExpenseForm = ({ handleCloseModal, editData = "", editMode }) => {
+const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
   const [formData, setFormData] = useState(editData);
   const [formError, setFormError] = useState({});
 
   const validateSubmission = (data) => {
     const errors = {};
-
-    !data.title.trim()
-      ? (errors.title = "You need to give the expense a name")
-      : null;
-    !data.amount > 0 ? (errors.amount = "You need to add an amount") : null;
-    !data.date.trim() ? (errors.date = "Please select a date") : null;
-    !data.category.trim()
-      ? (errors.category = "Please select a category")
-      : null;
+    if (!data.title.trim()) {
+      errors.title = "Expense name is required.";
+    }
+    if (Number(data.amount) <= 0 || isNaN(Number(data.amount))) {
+      errors.amount = "Amount must be a positive number.";
+    }
+    if (!data.date.trim()) {
+      errors.date = "Please select a date.";
+    }
+    if (!data.category.trim()) {
+      errors.category = "Please select a category.";
+    }
     setFormError(errors);
-
-    data.amount = isNaN(data.amount) ? data.amount : parseInt(data.amount, 10);
 
     return Object.keys(errors).length === 0;
   };
@@ -40,6 +41,7 @@ const ExpenseForm = ({ handleCloseModal, editData = "", editMode }) => {
 
     if (validateSubmission(formData)) {
       if (!editMode) {
+        formData.createdAt = serverTimestamp();
         try {
           const db = getFirestore(firebaseApp);
           await addDoc(collection(db, "expenses"), formData);
@@ -47,9 +49,6 @@ const ExpenseForm = ({ handleCloseModal, editData = "", editMode }) => {
           console.error("Error adding data to database", error);
         }
       } else if (editMode) {
-        console.log("Edit");
-        console.log(editData.id);
-
         try {
           const db = getFirestore(firebaseApp);
           const expenseRef = doc(collection(db, "expenses"), editData.id);
@@ -57,8 +56,8 @@ const ExpenseForm = ({ handleCloseModal, editData = "", editMode }) => {
         } catch (error) {
           console.error("Error editing data in database", error);
         }
-        handleCloseModal();
       }
+      handleCloseModal();
     }
   };
 
@@ -67,7 +66,6 @@ const ExpenseForm = ({ handleCloseModal, editData = "", editMode }) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-      createdAt: serverTimestamp(),
     });
   };
 

@@ -21,7 +21,12 @@ import firebaseApp from "./firebaseConfig";
 function App() {
   const [showExpenseModal, setShowExpenseModal] = useState(false);
   const [dbData, setDbData] = useState([]);
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState({
+    title: "",
+    amount: "",
+    date: "",
+    category: "",
+  });
   const [editMode, SetEditMode] = useState(false);
 
   useEffect(() => {
