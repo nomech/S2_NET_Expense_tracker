@@ -22,7 +22,7 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
     if (!data.title.trim()) {
       errors.title = "Expense name is required.";
     }
-    if (Number(data.amount) <= 0 || isNaN(Number(data.amount))) {
+    if (Number(data.amount) <= 0) {
       errors.amount = "Amount must be a positive number.";
     }
     if (!data.date.trim()) {
@@ -31,6 +31,9 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
     if (!data.category.trim()) {
       errors.category = "Please select a category.";
     }
+
+    data.amount = parseInt(data.amount, 10);
+
     setFormError(errors);
 
     return Object.keys(errors).length === 0;
