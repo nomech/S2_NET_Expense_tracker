@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  serverTimestamp,
+} from "firebase/firestore";
 import firebaseApp from "../../firebaseConfig";
 import styles from "./ExpenseForm.module.css";
 import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
 import SelectFields from "../SelectFields/SelectFields";
 
-const ExpenseForm = ({ handleCloseModal, setIsAdding }) => {
+const ExpenseForm = ({ handleCloseModal }) => {
   const [formData, setFormData] = useState({
     title: "",
     amount: "",
@@ -41,21 +46,22 @@ const ExpenseForm = ({ handleCloseModal, setIsAdding }) => {
 
     if (validateSubmission(formData)) {
       try {
-        setIsAdding(true);
         const db = getFirestore(firebaseApp);
         await addDoc(collection(db, "expenses"), formData);
       } catch (error) {
         console.error("Error adding data to database", error);
-      } finally {
-        setIsAdding(false);
-        handleCloseModal();
       }
+      handleCloseModal();
     }
   };
 
   const handleOnChange = (e) => {
     e.preventDefault();
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      createdAt: serverTimestamp(),
+    });
   };
 
   const options = [

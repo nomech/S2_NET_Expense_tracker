@@ -6,7 +6,6 @@ const FormModal = ({
   handleCloseModal,
   handleSubmit,
   setIsAdding,
-  setIsDeleting,
 }) => {
   return (
     <div className={styles.modal}>
@@ -14,7 +13,6 @@ const FormModal = ({
         handleCloseModal={handleCloseModal}
         handleSubmit={handleSubmit}
         setIsAdding={setIsAdding}
-        setIsDeleting={setIsDeleting}
       />
     </div>
   );

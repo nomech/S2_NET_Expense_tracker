@@ -5,7 +5,7 @@ import firebaseApp from "../../firebaseConfig";
 import Button from "../Button/Button";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
-const ExpenseCard = ({ expense, setIsDeleting }) => {
+const ExpenseCard = ({ expense }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const amount = new Intl.NumberFormat("no-NB", {
     style: "currency",
@@ -14,14 +14,11 @@ const ExpenseCard = ({ expense, setIsDeleting }) => {
 
   const handleDeleteOnClick = async (id) => {
     try {
-      setIsDeleting(true);
       const db = getFirestore(firebaseApp);
       await deleteDoc(doc(db, "expenses", id));
       setShowConfirmModal(false);
     } catch (error) {
       console.error("error deleting expense", error);
-    } finally {
-      setIsDeleting(false);
     }
   };
   const handleOpenConfirmModal = () => {

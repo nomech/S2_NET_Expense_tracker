@@ -9,34 +9,37 @@ import FormModal from "./components/FormModal/FormModal";
 
 // hooks, firebase, and react
 import { useEffect, useState } from "react";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getFirestore,
+  onSnapshot,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import firebaseApp from "./firebaseConfig";
 
 function App() {
   const [showExpenseModal, setShowExpenseModal] = useState(false);
-
   const [dbData, setDbData] = useState([]);
-  const [isAdding, setIsAdding] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    fetchData();
-  }, [isAdding, isDeleting]);
-
-  const fetchData = async () => {
-    try {
-      const db = getFirestore(firebaseApp);
-      const expenseCollection = collection(db, "expenses");
-      const querySnapshot = await getDocs(expenseCollection);
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
+    const db = getFirestore(firebaseApp);
+    const expenseCollection = collection(db, "expenses");
+    const q = query(expenseCollection, orderBy("createdAt"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      snapshot.docChanges().map((change) => {
+        return { changeType: change.type, id: change.doc.id };
       });
-      setDbData(data);
-    } catch (error) {
-      console.error("Error fetching data from database", error);
-    }
-  };
+
+      const newData = snapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+
+      setDbData(newData);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleOpenModal = () => {
     !showExpenseModal ? setShowExpenseModal(true) : null;
@@ -53,17 +56,8 @@ function App() {
         subtext={"It's tracking time!"}
       />
       <TotalExpenseCard data={dbData} />
-      <ExpenseList
-        data={dbData}
-        handleOpenModal={handleOpenModal}
-        setIsDeleting={setIsDeleting}
-      />
-      {showExpenseModal && (
-        <FormModal
-          handleCloseModal={handleCloseModal}
-          setIsAdding={setIsAdding}
-        />
-      )}
+      <ExpenseList data={dbData} handleOpenModal={handleOpenModal} />
+      {showExpenseModal && <FormModal handleCloseModal={handleCloseModal} />}
     </>
   );
 }
