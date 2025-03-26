@@ -4,8 +4,8 @@ import "./App.css";
 //Components
 import Banner from "./components/Banner/Banner";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
-import TotalExpenseCard from "./components/totalExpenseCard/totalExpenseCard";
 import FormModal from "./components/FormModal/FormModal";
+import StatsCards from "./components/StatsCard/statsCards";
 
 // hooks, firebase, and react
 import { useEffect, useState } from "react";
@@ -60,7 +60,7 @@ function App() {
 
   const handleCloseFormModal = () => {
     if (editMode) {
-      setEditData({});
+      setEditData({ title: "", amount: "", date: "", category: "" });
       SetEditMode(false);
     }
     showExpenseModal ? setShowExpenseModal(false) : null;
@@ -72,7 +72,7 @@ function App() {
         title={"Nomech's Expense Tracker (NET)"}
         subtext={"It's tracking time!"}
       />
-      <TotalExpenseCard data={dbData} />
+      <StatsCards data={dbData} />
       <ExpenseList
         data={dbData}
         handleOpenFormModal={handleOpenFormModal}
