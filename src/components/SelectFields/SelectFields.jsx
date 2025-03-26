@@ -3,6 +3,7 @@ import styles from "./SelectFields.module.css";
 
 const SelectFields = ({
   name,
+  label,
   options,
   handleOnChange,
   errorMessage,
@@ -10,7 +11,7 @@ const SelectFields = ({
 }) => {
   return (
     <div className={styles.formGroup}>
-      <label htmlFor="category">Category</label>
+      <label htmlFor="category">{label}</label>
       <select
         className={styles.input}
         name={name}
@@ -19,7 +20,7 @@ const SelectFields = ({
         onChange={handleOnChange}
       >
         <option className={styles.option} value="">
-          Select category
+          Select
         </option>
 
         {options &&

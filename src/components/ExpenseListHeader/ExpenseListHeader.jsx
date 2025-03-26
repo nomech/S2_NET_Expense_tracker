@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./ExpenseListHeader.module.css";
 import Button from "../Button/Button";
+import FilterBy from "../FilterBy/FilterBy";
 
 const ExpenseListHeader = ({
   handleCloseModal,
@@ -11,6 +12,7 @@ const ExpenseListHeader = ({
     <>
       <div className={styles.listPanel}>
         <Button handleAction={handleCloseModal}>Filter by</Button>
+        <FilterBy />
         <Button handleAction={handleOpenModal} type="add">
           + New Expense
         </Button>

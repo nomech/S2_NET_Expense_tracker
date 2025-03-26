@@ -112,6 +112,7 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
         />
         <SelectFields
           name="category"
+          label="Category"
           options={options}
           value={formData.category}
           handleOnChange={handleOnChange}
