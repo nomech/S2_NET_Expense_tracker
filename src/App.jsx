@@ -20,7 +20,7 @@ import firebaseApp from "./firebaseConfig";
 
 function App() {
   const [showExpenseModal, setShowExpenseModal] = useState(false);
-  const [dbData, setDbData] = useState([]);
+  const [dbData, setDbData] = useState();
   const [editData, setEditData] = useState({
     title: "",
     amount: "",
@@ -72,13 +72,15 @@ function App() {
         title={"Nomech's Expense Tracker (NET)"}
         subtext={"It's tracking time!"}
       />
-      <StatsCards data={dbData} />
-      <ExpenseList
-        data={dbData}
-        handleOpenFormModal={handleOpenFormModal}
-        handleEditForm={handleEditForm}
-        handleCloseModal={handleCloseFormModal}
-      />
+      {dbData && <StatsCards data={dbData} />}
+      {dbData && (
+        <ExpenseList
+          data={dbData}
+          handleOpenFormModal={handleOpenFormModal}
+          handleEditForm={handleEditForm}
+          handleCloseModal={handleCloseFormModal}
+        />
+      )}
       {showExpenseModal && (
         <FormModal
           handleCloseModal={handleCloseFormModal}

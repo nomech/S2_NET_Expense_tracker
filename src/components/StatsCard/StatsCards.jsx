@@ -5,9 +5,9 @@ import styles from "./StatsCards.module.css";
 const statsCards = ({ data }) => {
   return (
     <div className={styles.statsContainer}>
-      <StatCard data={data} title={"Total"} stat={"total"} />
-      <StatCard data={data} title={"biggest Expense"} stat={"max"} />
-      <StatCard data={data} title={"Avg. Category"} stat={"category"} />
+      <StatCard data={data} title={"Total expenses"} stat={"total"} />
+      <StatCard data={data} title={"biggest expense"} stat={"max"} />
+      <StatCard data={data} title={"Most expenses"} stat={"category"} />
     </div>
   );
 };
