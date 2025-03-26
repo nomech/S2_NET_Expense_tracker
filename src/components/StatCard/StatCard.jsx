@@ -28,21 +28,18 @@ const TotalExpenseCard = ({ data, title = "Title", stat }) => {
   } else if (stat == "max") {
     statData = formatAmount(Math.max(...amounts));
   } else if (stat == "category") {
-    let test = {};
+    let categoriesCount = {};
 
     categories.forEach((category) => {
-      console.log(category);
-      if (!test[category]) {
-        test[category] = 1;
+      if (!categoriesCount[category]) {
+        categoriesCount[category] = 1;
       } else {
-        test[category]++;
+        categoriesCount[category]++;
       }
     });
 
-    console.log(test);
-
-    statData = Object.keys(test).reduce((maxKey, currentKey) => {
-      return test[currentKey] > test[maxKey] ? currentKey : maxKey;
+    statData = Object.keys(categoriesCount).reduce((current, acc) => {
+      return categoriesCount[current] > categoriesCount[acc] ? current : acc;
     });
   }
 
