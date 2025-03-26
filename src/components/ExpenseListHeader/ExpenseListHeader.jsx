@@ -10,7 +10,7 @@ const ExpenseListHeader = ({
   return (
     <>
       <div className={styles.listPanel}>
-        <Button handleAction={handleCloseModal}>Add</Button>
+        <Button handleAction={handleCloseModal}>Filter by</Button>
         <Button handleAction={handleOpenModal} type="add">
           + New Expense
         </Button>

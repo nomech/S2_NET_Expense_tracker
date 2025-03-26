@@ -49,13 +49,13 @@ function App() {
   }, []);
 
   const handleOpenFormModal = () => {
-    !showExpenseModal ? setShowExpenseModal(true) : null;
+    !showExpenseModal && setShowExpenseModal(true)
   };
 
   const handleEditForm = (data) => {
     setEditData(data);
     SetEditMode(true);
-    !showExpenseModal ? setShowExpenseModal(true) : null;
+    !showExpenseModal && setShowExpenseModal(true)
   };
 
   const handleCloseFormModal = () => {
@@ -63,7 +63,7 @@ function App() {
       setEditData({ title: "", amount: "", date: "", category: "" });
       SetEditMode(false);
     }
-    showExpenseModal ? setShowExpenseModal(false) : null;
+    showExpenseModal && setShowExpenseModal(false);
   };
 
   return (
