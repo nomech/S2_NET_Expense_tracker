@@ -78,6 +78,12 @@ const ExpenseList = ({
   const handleApplyFilter = () => {
     const filteredData = [...data].filter((expense) => {
       if (field === "Amount") {
+        if (!filter.to) {
+          filter.to = Infinity;
+        }
+        if (!filter.from) {
+          filter.from = 0;
+        }
         return expense.amount >= filter.from && expense.amount <= filter.to;
       } else if (field === "Date") {
         return expense.date >= filter.from && expense.date <= filter.to;
@@ -85,14 +91,15 @@ const ExpenseList = ({
         return expense.category === filter.category;
       }
     });
+
+    console.log(filter.to);
     setCurrentData(filteredData);
   };
 
   const handleFilterReset = () => {
     setFilter();
-    setField();
+    setField("");
     setCurrentData(data);
-    setShowFilter(false);
   };
 
   return (

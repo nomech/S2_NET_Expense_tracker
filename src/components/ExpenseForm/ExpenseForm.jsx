@@ -22,7 +22,7 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
     if (!data.title.trim()) {
       errors.title = "Expense name is required.";
     }
-    if (Number(data.amount) <= 0) {
+    if (!data.amount || Number(data.amount) <= 0) {
       errors.amount = "Amount must be a positive number.";
     }
     if (!data.date.trim()) {
