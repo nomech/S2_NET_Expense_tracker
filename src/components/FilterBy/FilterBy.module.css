@@ -1,0 +1,6 @@
+.filterContainer {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  gap: 1rem;
+}

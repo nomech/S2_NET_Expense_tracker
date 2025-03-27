@@ -1,19 +1,36 @@
-import React from "react";
 import styles from "./ExpenseListHeader.module.css";
 import Button from "../Button/Button";
 import FilterBy from "../FilterBy/FilterBy";
 
 const ExpenseListHeader = ({
-  handleCloseModal,
   handleOpenModal,
   handleSortByColumn,
+  field,
+  filter,
+  handleFieldChange,
+  handleFieldValueChange,
+  handleApplyFilter,
+  categories,
+  handleFilterReset,
+  handleShowFilter,
+  showFilter
 }) => {
   return (
     <>
       <div className={styles.listPanel}>
-        <Button handleAction={handleCloseModal}>Filter by</Button>
-        <FilterBy />
-        <Button handleAction={handleOpenModal} type="add">
+        <Button handleAction={handleShowFilter}>Filter by</Button>
+        {showFilter && (
+          <FilterBy
+            field={field}
+            filter={filter}
+            handleFieldChange={handleFieldChange}
+            handleFieldValueChange={handleFieldValueChange}
+            handleApplyFilter={handleApplyFilter}
+            categories={categories}
+            handleFilterReset={handleFilterReset}
+          />
+        )}
+        <Button handleAction={handleOpenModal} type="new">
           + New Expense
         </Button>
       </div>

@@ -1,32 +1,21 @@
-import React, { useState } from "react";
+import styles from "./FilterBy.module.css";
 import SelectFields from "../SelectFields/SelectFields";
 import InputField from "../InputField/InputField";
+import Button from "../Button/Button";
 
-const FilterBy = ({ data }) => {
-  const [field, setField] = useState();
-  const [fieldValue, setFieldValue] = useState();
-
+const FilterBy = ({
+  field,
+  filter,
+  handleFieldChange,
+  handleFieldValueChange,
+  handleApplyFilter,
+  categories,
+  handleFilterReset,
+}) => {
   const options = ["Amount", "Date", "Category"];
 
-  const handleFieldChange = (e) => {
-    setField(e.target.value);
-    setFieldValue({
-      from: 0,
-      to: 0,
-      category: "",
-    });
-  };
-
-  const handleFieldValueChange = (e) => {
-    console.log(fieldValue);
-    setFieldValue((previous) => ({
-      ...previous,
-      [e.target.name]: [e.target.value],
-    }));
-  };
-
   return (
-    <div>
+    <div className={styles.filterContainer}>
       <SelectFields
         name={"Field"}
         id={"field"}
@@ -42,31 +31,52 @@ const FilterBy = ({ data }) => {
             name="from"
             placeholder="From"
             handleOnChange={handleFieldValueChange}
-            value={fieldValue.from}
+            value={filter.from}
           />
           <InputField
             type="number"
             name="to"
             placeholder="To"
             handleOnChange={handleFieldValueChange}
-            value={fieldValue.to}
+            value={filter.to}
           />
         </>
       )}
       {field == "Date" && (
         <>
-          <InputField type="date" name="from" label="From" />
-          <InputField type="date" name="to" label="To" />
+          <p>From</p>
+          <InputField
+            type="date"
+            name="from"
+            value={filter.from}
+            handleOnChange={handleFieldValueChange}
+          />
+          <p>To</p>
+          <InputField
+            type="date"
+            name="to"
+            value={filter.to}
+            handleOnChange={handleFieldValueChange}
+          />
         </>
       )}
       {field == "Category" && (
         <>
           <SelectFields
-            name={"Field"}
-            id={"field"}
+            name={"category"}
+            id={"category"}
             defaultValue={""}
-            options={options}
+            options={categories}
+            handleOnChange={handleFieldValueChange}
           />
+        </>
+      )}
+      {field && (
+        <>
+          <Button handleAction={handleApplyFilter} type="filter">
+            Apply
+          </Button>
+          <Button handleAction={handleFilterReset}>X Reset</Button>
         </>
       )}
     </div>

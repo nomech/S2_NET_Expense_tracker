@@ -7,7 +7,7 @@
   border-radius: 16px;
   cursor: pointer;
   padding: 12px;
-  min-width: 90px;
+  min-width: 100px;
 }
 
 .default:hover {
@@ -15,7 +15,6 @@
 }
 
 .edit:hover {
-  background-color: #185dc1;
   border: none;
 }
 
@@ -24,10 +23,11 @@
   border: none;
 }
 
-.cancel {
+.cancel:hover {
   background-color: #6c757d;
+  border: none;
 }
 
-.isAdding {
-  background-color: #1f2937;
+.new {
+  grid-column: 3;
 }

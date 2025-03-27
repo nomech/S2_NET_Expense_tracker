@@ -121,11 +121,19 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 
         <div className={styles.buttonGroup}>
           {editMode ? (
-            <Button buttonType="submit">Confirm</Button>
+            <Button buttonType="submit" type="add">
+              Confirm
+            </Button>
           ) : (
-            <Button buttonType="submit">Add</Button>
+            <Button buttonType="submit" type="add">
+              Add
+            </Button>
           )}
-          <Button buttonType="button" handleAction={handleCloseModal}>
+          <Button
+            buttonType="button"
+            type="cancel"
+            handleAction={handleCloseModal}
+          >
             Close
           </Button>
         </div>

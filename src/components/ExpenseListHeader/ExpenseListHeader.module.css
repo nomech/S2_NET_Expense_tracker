@@ -25,6 +25,8 @@
 }
 
 .listPanel {
-  display: flex;
+  display: grid;
   justify-content: space-between;
+  grid-template-columns: max-content 1fr max-content;
+  gap: 1rem;
 }

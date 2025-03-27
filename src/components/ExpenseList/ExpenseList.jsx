@@ -13,6 +13,9 @@ const ExpenseList = ({
 }) => {
   const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
+  const [field, setField] = useState();
+  const [filter, setFilter] = useState();
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     setCurrentData(data);
@@ -44,12 +47,69 @@ const ExpenseList = ({
     setCurrentData(sortedData);
   };
 
+  const handleFieldChange = (e) => {
+    setField(e.target.value);
+    setFilter({
+      from: "",
+      to: "",
+      field: "",
+    });
+  };
+
+  const categories = data.map((element) => {
+    return element.category;
+  });
+
+  const uniqueCategories = categories.filter(
+    (item, index) => categories.indexOf(item) === index
+  );
+
+  const handleFieldValueChange = (e) => {
+    setFilter((previous) => ({
+      ...previous,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleShowFilter = () => {
+    setShowFilter((prev) => !prev);
+  };
+
+  const handleApplyFilter = () => {
+    const filteredData = [...data].filter((expense) => {
+      if (field === "Amount") {
+        return expense.amount >= filter.from && expense.amount <= filter.to;
+      } else if (field === "Date") {
+        return expense.date >= filter.from && expense.date <= filter.to;
+      } else if (field === "Category") {
+        return expense.category === filter.category;
+      }
+    });
+    setCurrentData(filteredData);
+  };
+
+  const handleFilterReset = () => {
+    setFilter();
+    setField();
+    setCurrentData(data);
+    setShowFilter(false);
+  };
+
   return (
     <div className={styles.expenseList}>
       <ExpenseListHeader
         handleCloseModal={handleCloseModal}
         handleOpenModal={handleOpenFormModal}
         handleSortByColumn={handleSortByColumn}
+        field={field}
+        filter={filter}
+        handleFieldChange={handleFieldChange}
+        handleFieldValueChange={handleFieldValueChange}
+        handleApplyFilter={handleApplyFilter}
+        handleFilterReset={handleFilterReset}
+        categories={uniqueCategories}
+        handleShowFilter={handleShowFilter}
+        showFilter={showFilter}
       />
       {currentData.length > 0 ? (
         currentData.map((expense) => {
