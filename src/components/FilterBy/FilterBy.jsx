@@ -17,9 +17,9 @@ const FilterBy = ({
   return (
     <div className={styles.filterContainer}>
       <SelectFields
-        name={"Field"}
+        name={"field"}
         id={"field"}
-        defaultValue={""}
+        value={field}
         options={options}
         handleOnChange={handleFieldChange}
       />
@@ -65,7 +65,7 @@ const FilterBy = ({
           <SelectFields
             name={"category"}
             id={"category"}
-            defaultValue={""}
+            value={filter.category}
             options={categories}
             handleOnChange={handleFieldValueChange}
           />

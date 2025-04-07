@@ -16,7 +16,7 @@ const SelectFields = ({
         className={styles.input}
         name={name}
         id={name}
-        defaultValue={value}
+        value={value}
         onChange={handleOnChange}
       >
         <option className={styles.option} value="">
