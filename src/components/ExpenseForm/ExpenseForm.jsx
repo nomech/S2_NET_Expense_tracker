@@ -46,7 +46,7 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
       if (!editMode) {
         formData.createdAt = serverTimestamp();
         try {
-          const db = getFirestore(firebaseApp);
+          const db = getFirestore(firebaseApp); 
           await addDoc(collection(db, "expenses"), formData);
         } catch (error) {
           console.error("Error adding data to database", error);

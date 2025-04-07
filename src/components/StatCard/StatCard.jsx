@@ -28,18 +28,17 @@ const TotalExpenseCard = ({ data, title = "Title", stat }) => {
   } else if (stat == "max") {
     statData = formatAmount(Math.max(...amounts));
   } else if (stat == "category") {
-    let categoriesCount = {};
+    const categoriesAmount = {};
 
-    categories.forEach((category) => {
-      if (!categoriesCount[category]) {
-        categoriesCount[category] = 1;
-      } else {
-        categoriesCount[category]++;
+    data.forEach((expense) => {
+      const { category, amount } = expense;
+      if (categories.includes(category)) {
+        categoriesAmount[category] = (categoriesAmount[category] || 0) + amount;
       }
     });
 
-    statData = Object.keys(categoriesCount).reduce((current, acc) => {
-      return categoriesCount[current] > categoriesCount[acc] ? current : acc;
+    statData = Object.keys(categoriesAmount).reduce((current, acc) => {
+      return categoriesAmount[current] > categoriesAmount[acc] ? current : acc;
     });
   }
 

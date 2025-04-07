@@ -13,7 +13,7 @@ const ExpenseListHeader = ({
   categories,
   handleFilterReset,
   handleShowFilter,
-  showFilter
+  showFilter,
 }) => {
   return (
     <>
