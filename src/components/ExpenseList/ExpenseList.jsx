@@ -11,7 +11,7 @@ const ExpenseList = ({
   handleCloseModal,
   setEditData,
 }) => {
-  const [currentData, setCurrentData] = useState(data);
+  const [currentData, setCurrentData] = useState();
   const [sort, setSort] = useState("asc");
   const [field, setField] = useState();
   const [filter, setFilter] = useState();
@@ -118,7 +118,9 @@ const ExpenseList = ({
         handleShowFilter={handleShowFilter}
         showFilter={showFilter}
       />
-      {currentData.length > 0 ? (
+
+
+      {currentData && currentData.length > 0 ? (
         currentData.map((expense) => {
           return (
             <ExpenseCard

@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./StartCard.module.css";
 
-const TotalExpenseCard = ({ data, title = "Title", stat }) => {
+const StatCard = ({ data, title = "Title", stat = "No data" }) => {
   let statData = 0;
 
-  const amounts = [...data].map((expense) => {
+  const amounts = data.map((expense) => {
     return expense.amount;
   });
 
-  const categories = [...data].map((expense) => {
+  const categories = data.map((expense) => {
     return expense.category;
   });
 
@@ -26,7 +26,8 @@ const TotalExpenseCard = ({ data, title = "Title", stat }) => {
   if (stat == "total") {
     statData = formatAmount(calculatedTotalExpense);
   } else if (stat == "max") {
-    statData = formatAmount(Math.max(...amounts));
+    statData =
+      amounts.length > 0 ? formatAmount(Math.max(...amounts)) : formatAmount(0);
   } else if (stat == "category") {
     const categoriesAmount = {};
 
@@ -37,9 +38,13 @@ const TotalExpenseCard = ({ data, title = "Title", stat }) => {
       }
     });
 
-    statData = Object.keys(categoriesAmount).reduce((current, acc) => {
-      return categoriesAmount[current] > categoriesAmount[acc] ? current : acc;
-    });
+    if (Object.keys(categoriesAmount).length > 0) {
+      statData = Object.keys(categoriesAmount).reduce((current, acc) => {
+        return categoriesAmount[current] > categoriesAmount[acc] ? current : acc;
+      });
+    } else {
+      statData = "No data";
+    }
   }
 
   return (
@@ -50,4 +55,4 @@ const TotalExpenseCard = ({ data, title = "Title", stat }) => {
   );
 };
 
-export default TotalExpenseCard;
+export default StatCard;
