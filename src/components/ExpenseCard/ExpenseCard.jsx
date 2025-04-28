@@ -4,6 +4,8 @@ import { doc, deleteDoc, getFirestore } from "firebase/firestore";
 import firebaseApp from "../../firebaseConfig";
 import Button from "../Button/Button";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import edit from "../../assets/icons/edit.svg";
+import deleteIcon from "../../assets/icons/delete.svg";
 
 const ExpenseCard = ({ expense, handleEditForm }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -35,13 +37,19 @@ const ExpenseCard = ({ expense, handleEditForm }) => {
         <p className={styles.title}>{expense.title}</p>
         <p>{amount}</p>
         <p>{expense.date}</p>
-        <p>{expense.category}</p>
+        <p className={styles.category}>{expense.category}</p>
         <div className={styles.buttonGroup}>
           <Button type={"edit"} handleAction={() => handleEditForm(expense)}>
-            📝 Edit
+            <img className={styles.buttonIcon} src={edit} alt="Edit idcon" />
+            Edit
           </Button>
           <Button type={"delete"} handleAction={handleOpenConfirmModal}>
-            🗑️ Delete
+            <img
+              className={styles.buttonIcon}
+              src={deleteIcon}
+              alt="Delete icon"
+            />{" "}
+            Delete
           </Button>
         </div>
       </div>

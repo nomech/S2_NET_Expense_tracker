@@ -7,7 +7,7 @@
   border-radius: 16px;
   cursor: pointer;
   padding: 12px;
-  min-width: 100px;
+  min-width: 110px;
 }
 
 .default:hover {
@@ -30,4 +30,27 @@
 
 .new {
   grid-column: 3;
+}
+
+.filter {
+  min-width: 0;
+}
+
+@media screen and (max-width: 1390px) {
+  .default {
+    min-width: 0px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .edit,
+  .delete {
+    width: 90px;
+    padding: 0.5rem;
+    font-size: 12px;
+  }
+
+  .filter{
+    display: none;
+  }
 }

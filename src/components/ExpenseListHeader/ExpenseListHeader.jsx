@@ -3,6 +3,8 @@ import Button from "../Button/Button";
 import FilterBy from "../FilterBy/FilterBy";
 import HeaderItem from "../HeaderItem/HeaderItem";
 import InfoBox from "../InfoBox/InfoBox";
+import filterIcon from "../../assets/icons/filter.svg";
+import addIcon from "../../assets/icons/add.svg";
 
 const ExpenseListHeader = ({
   handleOpenModal,
@@ -24,7 +26,9 @@ const ExpenseListHeader = ({
   return (
     <>
       <div className={styles.listPanel}>
-        <Button handleAction={handleShowFilter}>Filter by</Button>
+        <Button handleAction={handleShowFilter} type="filter">
+          <img src={filterIcon} alt="Filter Icon" /> Filter
+        </Button>
         {showFilter && (
           <FilterBy
             field={field}
@@ -37,7 +41,7 @@ const ExpenseListHeader = ({
           />
         )}
         <Button handleAction={handleOpenModal} type="new">
-          + New Expense
+          <img src={addIcon} alt="Add icon" /> New Expense
         </Button>
       </div>
       <InfoBox text="You can click on each header to sort" />
@@ -54,7 +58,7 @@ const ExpenseListHeader = ({
               />
             );
           })}
-        <p>Action</p>
+        <p className={styles.action}>Action</p>
       </div>
     </>
   );

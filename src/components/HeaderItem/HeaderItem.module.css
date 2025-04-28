@@ -13,3 +13,9 @@
   width: 14px;
   height: 14px;
 }
+
+@media screen and (max-width: 1030px) {
+  .category {
+    display: none;
+  }
+}

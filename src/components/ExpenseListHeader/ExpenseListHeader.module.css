@@ -1,7 +1,7 @@
 .listHeader {
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   padding: 0.5rem;
   border: 1px solid #1f2937;
   border-radius: 5px;
@@ -16,15 +16,34 @@
   place-self: center;
 }
 
-
-
 .listPanel {
-  /*   display: grid;
-  justify-content: space-between;
-  grid-template-columns: max-content 1fr max-content;
-  gap: 1rem; */
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.listPanel img{
+  width: 14px;
+  height: 14px;
+}
+
+.action {
+  grid-column: 5;
+}
+
+@media screen and (max-width: 1030px) {
+  .listHeader {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .action {
+    grid-column: 4;
+  }
+}
+
+
+@media screen and (max-width: 628px) {
+  .listHeader {
+    display: none;
+  }
 }
