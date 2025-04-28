@@ -5,6 +5,9 @@ import sortDown from "../../assets/icons/sort-down.svg";
 import styles from "./HeaderItem.module.css";
 
 const HeaderItem = ({ name, handleSortByColumn, sort, column }) => {
+  console.log(sort);
+  console.log(column);
+  console.log("---");
   return (
     <div className={styles.column}>
       <p onClick={() => handleSortByColumn(name, sort)}>{name}</p>

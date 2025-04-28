@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ExpenseCard from "../ExpenseCard/ExpenseCard";
 import styles from "./ExpenseList.module.css";
 import NoDataCard from "../NoDataCard/NoDataCard";
@@ -11,21 +11,15 @@ const ExpenseList = ({
   handleCloseModal,
   setEditData,
 }) => {
-  const [currentData, setCurrentData] = useState();
+  const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
   const [column, setColumn] = useState("all");
   const [field, setField] = useState();
   const [filter, setFilter] = useState();
   const [showFilter, setShowFilter] = useState(false);
 
-  useEffect(() => {
-    setCurrentData(data);
-  }, [data]);
-
   const handleSortByColumn = (column, order) => {
-    const sortedData = currentData.sort((a, b) => {
-      console.log(column);
-      console.log(sort);
+    const sortedData = [...currentData].sort((a, b) => {
       if (order === "asc") {
         setSort("desc");
         setColumn(column);
@@ -38,6 +32,7 @@ const ExpenseList = ({
         return 0;
       } else if (order === "desc") {
         setSort("asc");
+        setColumn(column);
         if (a[column] < b[column]) {
           return 1;
         }
