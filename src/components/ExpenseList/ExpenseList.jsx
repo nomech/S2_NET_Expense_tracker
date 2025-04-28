@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ExpenseCard from "../ExpenseCard/ExpenseCard";
 import styles from "./ExpenseList.module.css";
 import NoDataCard from "../NoDataCard/NoDataCard";
@@ -11,18 +11,14 @@ const ExpenseList = ({
   handleCloseModal,
   setEditData,
 }) => {
-  const [currentData, setCurrentData] = useState();
+  const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
-  const [field, setField] = useState();
-  const [filter, setFilter] = useState();
+  const [field, setField] = useState(null);
+  const [filter, setFilter] = useState(null);
   const [showFilter, setShowFilter] = useState(false);
 
-  useEffect(() => {
-    setCurrentData(data);
-  }, [data]);
-
   const handleSortByColumn = (column) => {
-    const sortedData = [...currentData].sort((a, b) => {
+    const sortedData = currentData.sort((a, b) => {
       if (sort === "asc") {
         setSort("desc");
         if (a[column] < b[column]) {
@@ -76,7 +72,7 @@ const ExpenseList = ({
   };
 
   const handleApplyFilter = () => {
-    const filteredData = [...data].filter((expense) => {
+    const filteredData = data.filter((expense) => {
       if (field === "Amount") {
         if (!filter.to) {
           filter.to = Infinity;
@@ -118,9 +114,7 @@ const ExpenseList = ({
         handleShowFilter={handleShowFilter}
         showFilter={showFilter}
       />
-
-
-      {currentData && currentData.length > 0 ? (
+      {currentData.length > 0 ? (
         currentData.map((expense) => {
           return (
             <ExpenseCard

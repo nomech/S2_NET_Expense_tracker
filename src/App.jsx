@@ -21,6 +21,7 @@ import firebaseApp from "./firebaseConfig";
 function App() {
   const [showExpenseModal, setShowExpenseModal] = useState(false);
   const [dbData, setDbData] = useState();
+
   const [editData, setEditData] = useState({
     title: "",
     amount: "",
@@ -49,13 +50,13 @@ function App() {
   }, []);
 
   const handleOpenFormModal = () => {
-    !showExpenseModal && setShowExpenseModal(true)
+    !showExpenseModal && setShowExpenseModal(true);
   };
 
   const handleEditForm = (data) => {
     setEditData(data);
     SetEditMode(true);
-    !showExpenseModal && setShowExpenseModal(true)
+    !showExpenseModal && setShowExpenseModal(true);
   };
 
   const handleCloseFormModal = () => {
@@ -76,6 +77,7 @@ function App() {
       {dbData && (
         <ExpenseList
           data={dbData}
+          setData={setDbData}
           handleOpenFormModal={handleOpenFormModal}
           handleEditForm={handleEditForm}
           handleCloseModal={handleCloseFormModal}
