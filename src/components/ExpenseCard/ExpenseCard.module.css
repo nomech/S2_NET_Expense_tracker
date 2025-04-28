@@ -10,7 +10,6 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-weight: bold;
   text-transform: capitalize;
-  animation: fromGreenToOriginal 0.5s forwards;
 }
 
 .card:hover {
@@ -28,7 +27,6 @@
 }
 
 
-
 @keyframes fromGreenToOriginal {
   from {
     background-color: #12d499;
@@ -37,3 +35,5 @@
     background-color: #1f2937;
   }
 }
+
+

@@ -2,6 +2,7 @@ import styles from "./ExpenseListHeader.module.css";
 import Button from "../Button/Button";
 import FilterBy from "../FilterBy/FilterBy";
 import HeaderItem from "../HeaderItem/HeaderItem";
+import InfoBox from "../InfoBox/InfoBox";
 
 const ExpenseListHeader = ({
   handleOpenModal,
@@ -39,6 +40,7 @@ const ExpenseListHeader = ({
           + New Expense
         </Button>
       </div>
+      <InfoBox text="You can click on each header to sort" />
       <div className={styles.listHeader}>
         {headers &&
           headers.map((header, index) => {
