@@ -1,0 +1,15 @@
+.column {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column:hover {
+  color: #fb4c59;
+}
+
+.icons {
+  width: 14px;
+  height: 14px;
+}

@@ -13,14 +13,16 @@ const ExpenseList = ({
 }) => {
   const [currentData, setCurrentData] = useState(data);
   const [sort, setSort] = useState("asc");
+  const [column, setColumn] = useState("all");
   const [field, setField] = useState(null);
   const [filter, setFilter] = useState(null);
   const [showFilter, setShowFilter] = useState(false);
 
-  const handleSortByColumn = (column) => {
-    const sortedData = currentData.sort((a, b) => {
-      if (sort === "asc") {
+  const handleSortByColumn = (column, order) => {
+    const sortedData = [...currentData].sort((a, b) => {
+      if (order === "asc") {
         setSort("desc");
+        setColumn(column);
         if (a[column] < b[column]) {
           return -1;
         }
@@ -28,8 +30,9 @@ const ExpenseList = ({
           return 1;
         }
         return 0;
-      } else if (sort === "desc") {
+      } else if (order === "desc") {
         setSort("asc");
+        setColumn(column);
         if (a[column] < b[column]) {
           return 1;
         }
@@ -46,9 +49,9 @@ const ExpenseList = ({
   const handleFieldChange = (e) => {
     setField(e.target.value);
     setFilter({
-      from: "",
-      to: "",
-      field: "",
+      from: null,
+      to: null,
+      field: null,
     });
   };
 
@@ -82,13 +85,17 @@ const ExpenseList = ({
         }
         return expense.amount >= filter.from && expense.amount <= filter.to;
       } else if (field === "Date") {
+        if (!filter.to) {
+          filter.to = "31-12-9999";
+        }
+        if (!filter.from) {
+          filter.from = "01-01-1900";
+        }
         return expense.date >= filter.from && expense.date <= filter.to;
       } else if (field === "Category") {
         return expense.category === filter.category;
       }
     });
-
-    console.log(filter.to);
     setCurrentData(filteredData);
   };
 
@@ -106,6 +113,8 @@ const ExpenseList = ({
         handleSortByColumn={handleSortByColumn}
         field={field}
         filter={filter}
+        sort={sort}
+        column={column}
         handleFieldChange={handleFieldChange}
         handleFieldValueChange={handleFieldValueChange}
         handleApplyFilter={handleApplyFilter}
@@ -114,7 +123,8 @@ const ExpenseList = ({
         handleShowFilter={handleShowFilter}
         showFilter={showFilter}
       />
-      {currentData.length > 0 ? (
+
+      {currentData && currentData.length > 0 ? (
         currentData.map((expense) => {
           return (
             <ExpenseCard

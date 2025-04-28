@@ -16,13 +16,7 @@
   place-self: center;
 }
 
-.column {
-  cursor: pointer;
-}
 
-.column:hover {
-  color: #fb4c59;
-}
 
 .listPanel {
   /*   display: grid;

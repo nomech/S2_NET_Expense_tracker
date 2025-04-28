@@ -1,12 +1,15 @@
 import styles from "./ExpenseListHeader.module.css";
 import Button from "../Button/Button";
 import FilterBy from "../FilterBy/FilterBy";
+import HeaderItem from "../HeaderItem/HeaderItem";
 
 const ExpenseListHeader = ({
   handleOpenModal,
   handleSortByColumn,
   field,
   filter,
+  sort,
+  column,
   handleFieldChange,
   handleFieldValueChange,
   handleApplyFilter,
@@ -15,6 +18,8 @@ const ExpenseListHeader = ({
   handleShowFilter,
   showFilter,
 }) => {
+  const headers = ["title", "amount", "date", "category"];
+
   return (
     <>
       <div className={styles.listPanel}>
@@ -35,27 +40,18 @@ const ExpenseListHeader = ({
         </Button>
       </div>
       <div className={styles.listHeader}>
-        <p
-          className={styles.column}
-          onClick={() => handleSortByColumn("title")}
-        >
-          Title
-        </p>
-        <p
-          className={styles.column}
-          onClick={() => handleSortByColumn("amount")}
-        >
-          Amount
-        </p>
-        <p className={styles.column} onClick={() => handleSortByColumn("date")}>
-          Date
-        </p>
-        <p
-          className={styles.column}
-          onClick={() => handleSortByColumn("category")}
-        >
-          Category
-        </p>
+        {headers &&
+          headers.map((header, index) => {
+            return (
+              <HeaderItem
+                key={index}
+                name={header}
+                handleSortByColumn={handleSortByColumn}
+                sort={sort}
+                column={column}
+              />
+            );
+          })}
         <p>Action</p>
       </div>
     </>
