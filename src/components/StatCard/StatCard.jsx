@@ -55,8 +55,8 @@ const StatCard = ({ data, title = 'Title', stat = 'No data' }) => {
 
 	return (
 		// Card displaying the statistic
-		<article className={styles.totalExpense} aria-label={title}>
-			<h2 className={styles.totalHeading}>{title}</h2>
+		<article className={styles.statCard} aria-label={title}>
+			<h2 className={styles.statHeading}>{title}</h2>
 			<p className={styles.statData}>{statData}</p>
 		</article>
 	);

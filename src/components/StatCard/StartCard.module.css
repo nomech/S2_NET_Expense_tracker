@@ -1,4 +1,4 @@
-.totalExpense {
+.statCard {
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -10,9 +10,10 @@
 	border: 2px solid var(--color-accent-border);
 	border-radius: var(--border-radius);
 	background-color: var(--color-bg-alt);
+	min-width: 300px;
 }
 
-.totalHeading {
+.statHeading {
 	position: absolute;
 	top: -23px;
 	background-color: inherit;
@@ -24,11 +25,11 @@
 }
 
 @media screen and (max-width: 1390px) {
-	.totalExpense {
+	.statCard {
 		padding: var(--space-large);
 	}
 
-	.totalHeading {
+	.statHeading {
 		font-size: 22px;
 	}
 
@@ -38,7 +39,7 @@
 }
 
 @media screen and (max-width: 1030px) {
-	.totalExpense {
+	.statCard {
 		width: 50%;
 	}
 	.totalHeading {
@@ -51,7 +52,7 @@
 }
 
 @media screen and (max-width: 628px) {
-	.totalExpense {
+	.statCard {
 		width: 100%;
 	}
 }
