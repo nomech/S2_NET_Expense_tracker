@@ -1,31 +1,51 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+	--color-primary: #185dc1;
+	--color-bg: #0b1222;
+	--color-bg-alt: #111827;
+	--color-surface: #1f2937;
+	--color-accent: #fb4c59;
+	--color-accent-border: #f94c5b;
+	--color-cancel: #6c757d;
+	--color-text: #ffffff;
+	--border-radius: 8px;
+	--font-main: 'Montserrat', sans-serif;
+
+  
+	/* Spacing variables */
+	--space-xsmall: 0.25rem;
+	--space-small: 0.5rem;
+	--space-medium: 1rem;
+	--space-large: 2rem;
+	--space-xlarge: 4rem;
 }
 
 body {
-  padding: 1rem 15rem;
-  background-color: #0b1222;
+	padding: 1rem 15rem;
+	background-color: var(--color-bg);
 }
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("./assets/fonts/Montserrat-VariableFont_wght.ttf")
-    format("truetype-variations");
-  font-weight: 100 900;
-  font-style: normal;
+	font-family: 'Montserrat';
+	src: url('./assets/fonts/Montserrat-VariableFont_wght.ttf') format('truetype-variations');
+	font-weight: 100 900;
+	font-style: normal;
 }
 
 @media screen and (max-width: 1390px) {
-  body {
-    padding: 1rem 2rem;
-  }
+	body {
+		padding: 1rem 2rem;
+	}
 }
 
 @media screen and (max-width: 1030px) {
-  body {
-    padding: 2rem;
-  }
+	body {
+		padding: 2rem;
+	}
 }

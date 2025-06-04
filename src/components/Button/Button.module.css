@@ -1,56 +1,56 @@
 .default {
-  border: 1px solid #185dc1;
-  background-color: #0b1222;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #ffffff;
-  border-radius: 16px;
-  cursor: pointer;
-  padding: 12px;
-  min-width: 110px;
+	border: 1px solid var(--color-primary);
+	background-color: var(--color-bg);
+	font-weight: bold;
+	text-transform: uppercase;
+	color: var(--color-text);
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	padding: var(--space-small);
+	min-width: 110px;
 }
 
 .default:hover {
-  background-color: #185dc1;
+	background-color: var(--color-primary);
 }
 
 .edit:hover {
-  border: none;
+	border: none;
 }
 
 .delete:hover {
-  background-color: #fb4c59;
-  border: none;
+	background-color: var(--color-accent);
+	border: none;
 }
 
 .cancel:hover {
-  background-color: #6c757d;
-  border: none;
+	background-color: var(--color-cancel);
+	border: none;
 }
 
 .new {
-  grid-column: 3;
+	grid-column: 3;
 }
 
 .filter {
-  min-width: 0;
+	min-width: 0;
 }
 
 @media screen and (max-width: 1390px) {
-  .default {
-    min-width: 0px;
-  }
+	.default {
+		min-width: 0px;
+	}
 }
 
 @media screen and (max-width: 768px) {
-  .edit,
-  .delete {
-    width: 90px;
-    padding: 0.5rem;
-    font-size: 12px;
-  }
+	.edit,
+	.delete {
+		width: 90px;
+		padding: var(--space-xsmall);
+		font-size: 12px;
+	}
 
-  .filter{
-    display: none;
-  }
+	.filter {
+		display: none;
+	}
 }

@@ -1,7 +1,9 @@
 .noDataCard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  padding: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--color-accent);
+	padding: var(--space-large);
+	gap: var(--space-medium);
+	border-radius: var(--border-radius);
 }

@@ -1,19 +1,15 @@
 .modal {
-  position: absolute;
-  color: #ffffff;
-  background-color: #00000085;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
+	position: absolute;
+	color: var(--color-text);
+	background-color: #00000085;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: var(--space-large);
 }
-
-
-
-

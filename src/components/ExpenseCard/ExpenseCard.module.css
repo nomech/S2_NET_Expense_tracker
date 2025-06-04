@@ -1,77 +1,77 @@
 .card {
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(5, 1fr);
-  padding: 1rem;
-  border: 1px solid #1f2937;
-  border-radius: 5px;
-  background-color: #1f2937; /* Original color */
-  color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  font-weight: bold;
-  text-transform: capitalize;
+	display: grid;
+	align-items: center;
+	grid-template-columns: repeat(5, 1fr);
+	padding: var(--space-medium);
+	border: 1px solid var(--color-surface);
+	border-radius: var(--border-radius);
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	font-weight: bold;
+	text-transform: capitalize;
 }
 
 .card:hover {
-  border: 1px solid #185dc1;
+	border: 1px solid var(--color-primary);
 }
 
 .title {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .buttonGroup {
-  display: flex;
-  gap: 1rem;
-  place-self: center;
-  grid-column: 5;
+	display: flex;
+	gap: var(--space-medium);
+	place-self: center;
+	grid-column: 5;
 }
 
 .buttonIcon {
-  width: 14px;
-  height: 14px;
-  margin-right: 1rem;
+	width: 14px;
+	height: 14px;
+	margin-right: 1rem;
 }
 
 @media screen and (max-width: 1030px) {
-  .card {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .category {
-    display: none;
-  }
-  .buttonGroup {
-    grid-column: 4;
-  }
+	.card {
+		grid-template-columns: repeat(4, 1fr);
+	}
+	.category {
+		display: none;
+	}
+	.buttonGroup {
+		grid-column: 4;
+	}
 }
 
 @media screen and (max-width: 768px) {
-  .card {
-    font-size: 12px;
-  }
+	.card {
+		font-size: 12px;
+	}
 
-  .buttonGroup {
-    gap: 0.5rem;
-  }
+	.buttonGroup {
+		gap: var(--space-xsmall);
+	}
 }
 
 @media screen and (max-width: 628px) {
-  .card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+	.card {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
 
-  .title {
-    font-size: 22px;
-  }
+	.title {
+		font-size: 22px;
+	}
 }
 
 @keyframes fromGreenToOriginal {
-  from {
-    background-color: #12d499;
-  }
-  to {
-    background-color: #1f2937;
-  }
+	from {
+		background-color: #12d499;
+	}
+	to {
+		background-color: var(--color-surface);
+	}
 }

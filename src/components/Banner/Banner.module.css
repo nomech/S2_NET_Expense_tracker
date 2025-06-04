@@ -1,27 +1,30 @@
 .banner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 200px;
-  background-color: #111827;
-  flex-flow: 1;
-  color: #ffffff;
-  flex-direction: column;
-  border: 3px solid #f94c5b;
-  border-radius: 8px;
-  text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 200px;
+	background-color: var(--color-bg-alt);
+	flex-flow: 1;
+	color: var(--color-text);
+	flex-direction: column;
+	border: 3px solid var(--color-accent-border);
+	border-radius: 8px;
+	text-align: center;
+	padding: var(--space-large);
+	gap: var(--space-medium);
 }
 
 @media screen and (max-width: 1030px) {
-  .banner {
-    height: 150px;
-  }
+	.banner {
+		height: 150px;
+		padding: var(--space-medium);
+	}
 }
 
 @media screen and (max-width: 628px) {
-  .banner {
-    font-size: 14px;
-    text-align: center;
-  }
+	.banner {
+		font-size: 14px;
+		text-align: center;
+	}
 }

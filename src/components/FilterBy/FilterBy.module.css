@@ -1,8 +1,7 @@
 .filterContainer {
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  gap: 1rem;
-  margin-right: auto;
+	display: flex;
+	align-items: center;
+	color: var(--color-text);
+	gap: var(--space-medium);
+	margin-right: auto;
 }
-

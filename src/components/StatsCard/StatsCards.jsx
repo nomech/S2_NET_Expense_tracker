@@ -1,15 +1,18 @@
-import React from "react";
-import StatCard from "../StatCard/StatCard";
-import styles from "./StatsCards.module.css";
+import React from 'react';
+import styles from './StatsCards.module.css';
+import StatCard from '../StatCard/StatCard';
 
-const statsCards = ({ data }) => {
-  return (
-    <div className={styles.statsContainer}>
-      <StatCard data={data} title={"Total expenses"} stat={"total"} />
-      <StatCard data={data} title={"biggest expense"} stat={"max"} />
-      <StatCard data={data} title={"Most expenses"} stat={"category"} />
-    </div>
-  );
+const StatsCards = ({ data }) => {
+	return (
+		// Container for all statistics cards
+		<section className={styles.statsContainer} aria-label="Statistics">
+			
+			{/* Total expenses, biggest expense, and most expensive category */}
+			<StatCard data={data} title={'Total expenses'} stat={'total'} />
+			<StatCard data={data} title={'biggest expense'} stat={'max'} />
+			<StatCard data={data} title={'Most expenses'} stat={'category'} />
+		</section>
+	);
 };
 
-export default statsCards;
+export default StatsCards;

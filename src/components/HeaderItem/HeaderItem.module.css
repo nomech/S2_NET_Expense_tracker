@@ -1,21 +1,21 @@
 .column {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: var(--space-small);
 }
 
 .column:hover {
-  color: #fb4c59;
+	color: var(--color-accent);
 }
 
 .icons {
-  width: 14px;
-  height: 14px;
+	width: 14px;
+	height: 14px;
 }
 
 @media screen and (max-width: 1030px) {
-  .category {
-    display: none;
-  }
+	.category {
+		display: none;
+	}
 }

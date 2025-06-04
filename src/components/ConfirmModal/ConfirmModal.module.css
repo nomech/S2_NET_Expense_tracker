@@ -1,34 +1,34 @@
 .confirmModal {
-  position: absolute;
-  color: #ffffff;
-  background-color: #00000085;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
+	position: absolute;
+	color: var(--color-text);
+	background-color: #00000085;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: var(--space-large);
 }
 
 .deleteContainer {
-  background-color: #0b1222;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 2rem;
-  border: 2px solid #f94c5b;
-  border-radius: 8px;
+	background-color: var(--color-bg);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: var(--space-large);
+	padding: var(--space-large);
+	border: 2px solid var(--color-accent-border);
+	border-radius: 8px;
 }
 
 .buttonGroup {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-large);
 }
