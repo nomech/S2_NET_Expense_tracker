@@ -18,6 +18,8 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 	// Local state for form data and validation errors
 	const [formData, setFormData] = useState(editData);
 	const [formError, setFormError] = useState({});
+	// State for async error message
+	const [errorMessage, setErrorMessage] = useState('');
 
 	// Validate form fields before submission
 	const validateSubmission = (data) => {
@@ -61,8 +63,10 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 				try {
 					const db = getFirestore(firebaseApp);
 					await addDoc(collection(db, 'expenses'), formData);
+					setErrorMessage('');
 				} catch (error) {
 					console.error('Error adding data to database', error);
+					setErrorMessage('Failed to add expense. Please try again.');
 				}
 			} else if (editMode) {
 				// Update existing expense in Firestore
@@ -70,8 +74,10 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 					const db = getFirestore(firebaseApp);
 					const expenseRef = doc(collection(db, 'expenses'), editData.id);
 					await updateDoc(expenseRef, formData);
+					setErrorMessage('');
 				} catch (error) {
 					console.error('Error editing data in database', error);
+					setErrorMessage('Failed to update expense. Please try again.');
 				}
 			}
 			handleCloseModal();
@@ -134,6 +140,7 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 						errorMessage={formError.category}
 					/>
 				</fieldset>
+				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 				<div className={styles.buttonGroup}>
 					{/* Button for confirming edit or adding new expense */}
 					{editMode ? (

@@ -11,6 +11,8 @@ import deleteIcon from '../../assets/icons/delete.svg';
 const ExpenseCard = ({ expense, handleEditForm }) => {
 	// State to control the visibility of the delete confirmation modal
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
+	// State for error message
+	const [errorMessage, setErrorMessage] = useState('');
 
 	// Format the amount as currency (NOK)
 	const amount = new Intl.NumberFormat('no-NB', {
@@ -24,8 +26,10 @@ const ExpenseCard = ({ expense, handleEditForm }) => {
 			const db = getFirestore(firebaseApp);
 			await deleteDoc(doc(db, 'expenses', id));
 			setShowConfirmModal(false);
+			setErrorMessage('');
 		} catch (error) {
 			console.error('error deleting expense', error);
+			setErrorMessage('Failed to delete expense. Please try again.');
 		}
 	};
 
@@ -60,6 +64,8 @@ const ExpenseCard = ({ expense, handleEditForm }) => {
 						Delete
 					</Button>
 				</div>
+				{/* Show error message if deletion fails */}
+				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 			</article>
 
 			{/* Show confirmation modal if triggered */}

@@ -20,3 +20,8 @@ fieldset {
 	display: flex;
 	gap: var(--space-xlarge);
 }
+
+.errorMessage {
+	color: var(--color-accent);
+	margin-top: var(--space-small);
+}
