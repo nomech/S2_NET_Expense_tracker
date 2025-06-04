@@ -9,8 +9,8 @@ Expense Tracker (NET) is a responsive web application for tracking, sorting, and
 
 ## GitHub Repository
 
--   [![GitHub Repository](https://img.shields.io/badge/GitHub-Repo-blue)](https://github.com/nomech/s2_assignment_3)
--   https://github.com/nomech/s2_assignment_3
+-   [![GitHub Repository](https://img.shields.io/badge/GitHub-Repo-blue)](https://github.com/nomech/S2_NET_Expense_tracker)
+-   https://github.com/nomech/S2_NET_Expense_tracker
 
 ## Description
 
@@ -23,10 +23,10 @@ Expense Tracker (NET) allows users to:
 
 ## Technologies
 
--   **React**
--   **Vite**
--   **Netlify**
--   **Firebase Firestore**
+-   **React** Assignment requirement
+-   **Vite** Chosen as the build tool and development server for its fast hot module replacement and minimal configuration.
+-   **Netlify** Due to its simple integration with static sites, continuous deployment from GitHub, and free hosting tier.
+-   **Firebase Firestore** Easy to use and covers the requirements for this app
 -   **CSS Modules**
 
 ## Resources
