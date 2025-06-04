@@ -34,7 +34,7 @@ Expense Tracker (NET) allows users to:
 -   **[Firebase Docs](https://firebase.google.com/docs/)**
 -   **[React Docs](https://react.dev/)**
 -   **[Vite Docs](https://vitejs.dev/)**
--   **[CSS Modules](https://github.com/css-modules/css-modules)**
+-   **[ISO string](https://www.w3schools.com/jsref/jsref_toisostring.asp)**
 
 ## License
 
