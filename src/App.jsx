@@ -5,7 +5,7 @@ import "./App.css";
 import Banner from "./components/Banner/Banner";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
 import FormModal from "./components/FormModal/FormModal";
-import StatsCards from "./components/StatsCard/statsCards";
+import StatsCards from "./components/StatsCard/StatsCards";
 
 // hooks, firebase, and react
 import { useEffect, useState } from "react";
