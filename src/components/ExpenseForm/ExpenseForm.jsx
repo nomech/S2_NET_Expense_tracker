@@ -38,20 +38,23 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 		if (!data.category.trim()) {
 			errors.category = 'Please select a category.';
 		}
-
 		// Convert amount to integer for storage
 		data.amount = parseInt(data.amount, 10);
-
 		setFormError(errors);
-
 		return Object.keys(errors).length === 0;
 	};
 
 	// Handle form submission for add or edit
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		if (validateSubmission(formData)) {
+			// Ensure date is always stored in ISO 8601 format
+			//https://www.w3schools.com/jsref/jsref_toisostring.asp
+
+			if (formData.date) {
+				formData.date = new Date(formData.date).toISOString().split('T')[0];
+			}
+
 			if (!editMode) {
 				// Add new expense to Firestore
 				formData.createdAt = serverTimestamp();

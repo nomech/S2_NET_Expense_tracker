@@ -7,6 +7,7 @@ import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import edit from '../../assets/icons/edit.svg';
 import deleteIcon from '../../assets/icons/delete.svg';
 
+// Displays a single expense item with edit and delete actions
 const ExpenseCard = ({ expense, handleEditForm }) => {
 	// State to control the visibility of the delete confirmation modal
 	const [showConfirmModal, setShowConfirmModal] = useState(false);

@@ -33,6 +33,7 @@ const StatCard = ({ data, title = 'Title', stat = 'No data' }) => {
 	} else if (stat == 'max') {
 		statData = amounts.length > 0 ? formatAmount(Math.max(...amounts)) : formatAmount(0);
 	} else if (stat == 'category') {
+		
 		// Calculate the category with the highest total expense
 		const categoriesAmount = {};
 

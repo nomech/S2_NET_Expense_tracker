@@ -75,31 +75,32 @@ function App() {
 
 	return (
 		<>
-			{/* Banner displays the app title and subtitle */}
 			<Banner title={"Nomech's Expense Tracker (NET)"} subtext={"It's tracking time!"} />
+			{/* Banner displays the app title and subtitle */}
+			<main>
+				{/* Show statistics if data is loaded */}
+				{dbData && <StatsCards data={dbData} />}
 
-			{/* Show statistics if data is loaded */}
-			{dbData && <StatsCards data={dbData} />}
+				{/* Show the expense list if data is loaded */}
+				{dbData && (
+					<ExpenseList
+						data={dbData}
+						setData={setDbData}
+						handleOpenFormModal={handleOpenFormModal}
+						handleEditForm={handleEditForm}
+						handleCloseModal={handleCloseFormModal}
+					/>
+				)}
 
-			{/* Show the expense list if data is loaded */}
-			{dbData && (
-				<ExpenseList
-					data={dbData}
-					setData={setDbData}
-					handleOpenFormModal={handleOpenFormModal}
-					handleEditForm={handleEditForm}
-					handleCloseModal={handleCloseFormModal}
-				/>
-			)}
-
-			{/* Show the form modal for adding/editing expenses */}
-			{showExpenseModal && (
-				<FormModal
-					handleCloseModal={handleCloseFormModal}
-					editData={editData}
-					editMode={editMode}
-				/>
-			)}
+				{/* Show the form modal for adding/editing expenses */}
+				{showExpenseModal && (
+					<FormModal
+						handleCloseModal={handleCloseFormModal}
+						editData={editData}
+						editMode={editMode}
+					/>
+				)}
+			</main>
 		</>
 	);
 }

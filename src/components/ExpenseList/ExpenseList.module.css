@@ -1,5 +1,4 @@
 .expenseList {
-	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-medium);
@@ -7,6 +6,9 @@
 }
 
 .list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-medium);
 	list-style: none;
 	padding: 0;
 	margin: 0;

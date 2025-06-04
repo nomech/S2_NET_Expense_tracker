@@ -123,7 +123,7 @@ const ExpenseList = ({
 	};
 
 	return (
-		<main className={styles.expenseList}>
+		<section className={styles.expenseList}>
 			{/* Header with filter and sort controls */}
 			<ExpenseListHeader
 				handleCloseModal={handleCloseModal}
@@ -160,7 +160,7 @@ const ExpenseList = ({
 			) : (
 				<NoDataCard>There are no expenses registred yet</NoDataCard>
 			)}
-		</main>
+		</section>
 	);
 };
 

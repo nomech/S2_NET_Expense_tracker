@@ -17,7 +17,6 @@
 	--border-radius: 8px;
 	--font-main: 'Montserrat', sans-serif;
 
-  
 	/* Spacing variables */
 	--space-xsmall: 0.25rem;
 	--space-small: 0.5rem;
@@ -29,6 +28,12 @@
 body {
 	padding: 1rem 15rem;
 	background-color: var(--color-bg);
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xlarge);
 }
 
 @font-face {
