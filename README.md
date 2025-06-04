@@ -4,8 +4,8 @@ Expense Tracker (NET) is a responsive web application for tracking, sorting, and
 
 ## Live Demo
 
--   [![Netlify Deployment](https://img.shields.io/badge/Deploy-on%20Netlify-brightgreen)](https://s2-expense-tracker.netlify.app/)
--   https://s2-expense-tracker.netlify.app/
+-   [![Netlify Deployment](https://img.shields.io/badge/Deploy-on%20Netlify-brightgreen)](https://nomech-expenses.netlify.app/)
+-   https://nomech-expenses.netlify.app/
 
 ## GitHub Repository
 
