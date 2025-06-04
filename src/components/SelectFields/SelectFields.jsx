@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./SelectFields.module.css";
 
+// Reusable select field for forms
 const SelectFields = ({
   name,
   label,
@@ -11,7 +12,9 @@ const SelectFields = ({
 }) => {
   return (
     <div className={styles.formGroup}>
+      {/* Label for the select field */}
       <label htmlFor="category">{label}</label>
+      {/* Dropdown select element */}
       <select
         className={styles.input}
         name={name}
@@ -22,7 +25,7 @@ const SelectFields = ({
         <option className={styles.option} value="">
           Select
         </option>
-
+        {/* Render options dynamically */}
         {options &&
           options.map((option) => {
             return (
@@ -32,6 +35,7 @@ const SelectFields = ({
             );
           })}
       </select>
+      {/* Show error message if present */}
       <p className={`${errorMessage ? styles.error : ""}`}>{errorMessage}</p>
     </div>
   );

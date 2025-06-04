@@ -1,5 +1,5 @@
 //CSS
-import "./App.css";
+import './App.css';
 
 //Components
 import Banner from "./components/Banner/Banner";
@@ -8,90 +8,101 @@ import FormModal from "./components/FormModal/FormModal";
 import StatsCards from "./components/StatsCard/StatsCards";
 
 // hooks, firebase, and react
-import { useEffect, useState } from "react";
-import {
-  collection,
-  getFirestore,
-  onSnapshot,
-  query,
-  orderBy,
-} from "firebase/firestore";
-import firebaseApp from "./firebaseConfig";
+import { useEffect, useState } from 'react';
+import { collection, getFirestore, onSnapshot, query, orderBy } from 'firebase/firestore';
+import firebaseApp from './firebaseConfig';
 
 function App() {
-  const [showExpenseModal, setShowExpenseModal] = useState(false);
-  const [dbData, setDbData] = useState();
+	// State for controlling the visibility of the expense modal
+	const [showExpenseModal, setShowExpenseModal] = useState(false);
 
-  const [editData, setEditData] = useState({
-    title: "",
-    amount: "",
-    date: "",
-    category: "",
-  });
-  const [editMode, SetEditMode] = useState(false);
+	// State for storing all expense data from Firestore
+	const [dbData, setDbData] = useState();
 
-  useEffect(() => {
-    const db = getFirestore(firebaseApp);
-    const expenseCollection = collection(db, "expenses");
-    const q = query(expenseCollection, orderBy("createdAt"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      snapshot.docChanges().map((change) => {
-        return { changeType: change.type, id: change.doc.id };
-      });
+	// State for editing an expense
+	const [editData, setEditData] = useState({
+		title: '',
+		amount: '',
+		date: '',
+		category: '',
+	});
 
-      const newData = snapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() };
-      });
+	// State to track if the form is in edit mode
+	const [editMode, SetEditMode] = useState(false);
 
-      setDbData(newData);
-    });
+	// Fetch expenses from Firestore
+	useEffect(() => {
+		const db = getFirestore(firebaseApp);
+		const expenseCollection = collection(db, 'expenses');
+		const q = query(expenseCollection, orderBy('createdAt'));
 
-    return () => unsubscribe();
-  }, []);
+		// Listen for real-time updates from Firestore
+		const unsubscribe = onSnapshot(q, (snapshot) => {
+			snapshot.docChanges().map((change) => {
+				return { changeType: change.type, id: change.doc.id };
+			});
 
-  const handleOpenFormModal = () => {
-    !showExpenseModal && setShowExpenseModal(true);
-  };
+			const newData = snapshot.docs.map((doc) => {
+				return { id: doc.id, ...doc.data() };
+			});
 
-  const handleEditForm = (data) => {
-    setEditData(data);
-    SetEditMode(true);
-    !showExpenseModal && setShowExpenseModal(true);
-  };
+			setDbData(newData);
+		});
 
-  const handleCloseFormModal = () => {
-    if (editMode) {
-      setEditData({ title: "", amount: "", date: "", category: "" });
-      SetEditMode(false);
-    }
-    showExpenseModal && setShowExpenseModal(false);
-  };
+		return () => unsubscribe();
+	}, []);
 
-  return (
-    <>
-      <Banner
-        title={"Nomech's Expense Tracker (NET)"}
-        subtext={"It's tracking time!"}
-      />
-      {dbData && <StatsCards data={dbData} />}
-      {dbData && (
-        <ExpenseList
-          data={dbData}
-          setData={setDbData}
-          handleOpenFormModal={handleOpenFormModal}
-          handleEditForm={handleEditForm}
-          handleCloseModal={handleCloseFormModal}
-        />
-      )}
-      {showExpenseModal && (
-        <FormModal
-          handleCloseModal={handleCloseFormModal}
-          editData={editData}
-          editMode={editMode}
-        />
-      )}
-    </>
-  );
+	// Open the form modal for adding a new expense
+	const handleOpenFormModal = () => {
+		!showExpenseModal && setShowExpenseModal(true);
+	};
+
+	// Open the form modal for editing an existing expense
+	const handleEditForm = (data) => {
+		setEditData(data);
+		SetEditMode(true);
+		!showExpenseModal && setShowExpenseModal(true);
+	};
+
+	// Close the form modal and reset edit state if needed
+	const handleCloseFormModal = () => {
+		if (editMode) {
+			setEditData({ title: '', amount: '', date: '', category: '' });
+			SetEditMode(false);
+		}
+		showExpenseModal && setShowExpenseModal(false);
+	};
+
+	return (
+		<>
+			<Banner title={"Nomech's Expense Tracker (NET)"} subtext={"It's tracking time!"} />
+			{/* Banner displays the app title and subtitle */}
+			<main>
+				{/* Show statistics if data is loaded */}
+				{dbData && <StatsCards data={dbData} />}
+
+				{/* Show the expense list if data is loaded */}
+				{dbData && (
+					<ExpenseList
+						data={dbData}
+						setData={setDbData}
+						handleOpenFormModal={handleOpenFormModal}
+						handleEditForm={handleEditForm}
+						handleCloseModal={handleCloseFormModal}
+					/>
+				)}
+
+				{/* Show the form modal for adding/editing expenses */}
+				{showExpenseModal && (
+					<FormModal
+						handleCloseModal={handleCloseFormModal}
+						editData={editData}
+						editMode={editMode}
+					/>
+				)}
+			</main>
+		</>
+	);
 }
 
 export default App;

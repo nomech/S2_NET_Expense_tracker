@@ -1,14 +1,16 @@
 .formGroup {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-small);
 }
 .input {
-  height: 2rem;
-  padding: 0.5rem;
-  font-weight: 600;
+	height: 2rem;
+	padding: var(--space-small);
+	font-weight: 600;
+	border-radius: var(--border-radius);
 }
 
 .error {
-  display: flex;
-  color: #fb4c59;
+	display: flex;
+	color: var(--color-accent);
 }

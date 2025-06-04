@@ -1,16 +1,16 @@
 .statsContainer {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--space-medium);
 }
 
 @media screen and (max-width: 1030px) {
-  .statsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    justify-content: center;
-    align-items: center;
-  }
+	.statsContainer {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xlarge);
+		justify-content: center;
+		align-items: center;
+	}
 }
