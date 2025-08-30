@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styles from './ExpenseCard.module.css';
-import { doc, deleteDoc, getFirestore } from 'firebase/firestore';
-import firebaseApp from '../../firebaseConfig';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 import Button from '../Button/Button';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import edit from '../../assets/icons/edit.svg';
 import deleteIcon from '../../assets/icons/delete.svg';
+import { useAuth } from '../../context/authContext';
 
 // Displays a single expense item with edit and delete actions
 const ExpenseCard = ({ expense, handleEditForm }) => {
@@ -13,6 +14,7 @@ const ExpenseCard = ({ expense, handleEditForm }) => {
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
 	// State for error message
 	const [errorMessage, setErrorMessage] = useState('');
+	const { user } = useAuth();
 
 	// Format the amount as currency (NOK)
 	const amount = new Intl.NumberFormat('no-NB', {
@@ -23,16 +25,12 @@ const ExpenseCard = ({ expense, handleEditForm }) => {
 	// Delete the expense from Firestore
 	const handleDeleteOnClick = async (id) => {
 		try {
-			const db = getFirestore(firebaseApp);
-			await deleteDoc(doc(db, 'expenses', id));
-			setShowConfirmModal(false);
-			setErrorMessage('');
+			const ref = doc(db, 'users', user.uid, 'expenses', id); // ✅ correct path
+			await deleteDoc(ref);
 		} catch (error) {
-			console.error('error deleting expense', error);
-			setErrorMessage('Failed to delete expense. Please try again.');
+			console.error('Error deleting expense', error);
 		}
 	};
-
 	// Open the confirmation modal
 	const handleOpenConfirmModal = () => {
 		!showConfirmModal ? setShowConfirmModal(true) : null;
@@ -49,7 +47,8 @@ const ExpenseCard = ({ expense, handleEditForm }) => {
 			<article className={styles.card} aria-label={`Expense: ${expense.title}`}>
 				<p className={styles.title}>{expense.title}</p>
 				<p>{amount}</p>
-				<p>{expense.date}</p>
+				<p>{expense.date ? expense.date.toDate().toLocaleDateString('en-GB') : ''}</p>
+
 				<p className={styles.category}>{expense.category}</p>
 				<div className={styles.buttonGroup}>
 					{/* Edit button opens the form modal in edit mode */}

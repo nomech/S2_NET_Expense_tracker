@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import {
-	collection,
-	addDoc,
-	getFirestore,
-	serverTimestamp,
-	doc,
-	updateDoc,
-} from 'firebase/firestore';
-import firebaseApp from '../../firebaseConfig';
+import { collection, addDoc, serverTimestamp, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 import styles from './ExpenseForm.module.css';
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import SelectFields from '../SelectFields/SelectFields';
+import { useAuth } from '../../context/authContext';
+import { Timestamp } from 'firebase/firestore';
 
 // ExpenseForm.jsx - Handles adding and editing expenses
 const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
@@ -21,27 +16,28 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 	// State for async error message
 	const [errorMessage, setErrorMessage] = useState('');
 
+	// auth (for uid-scoped writes)
+	const { user } = useAuth(); // <-- ADDED
+
 	// Validate form fields before submission
 	const validateSubmission = (data) => {
 		const errors = {};
 		// Title is required
-		if (!data.title.trim()) {
+		if (!data.title?.trim()) {
 			errors.title = 'Expense name is required.';
 		}
 		// Amount must be a positive number
-		if (!data.amount || Number(data.amount) <= 0) {
+		if (data.amount === '' || Number(data.amount) <= 0) {
 			errors.amount = 'Amount must be a positive number.';
 		}
 		// Date is required
-		if (!data.date.trim()) {
+		if (!data.date) {
 			errors.date = 'Please select a date.';
 		}
 		// Category is required
-		if (!data.category.trim()) {
+		if (!data.category?.trim()) {
 			errors.category = 'Please select a category.';
 		}
-		// Convert amount to integer for storage
-		data.amount = parseInt(data.amount, 10);
 		setFormError(errors);
 		return Object.keys(errors).length === 0;
 	};
@@ -49,38 +45,54 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 	// Handle form submission for add or edit
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (!user?.uid) {
+			setErrorMessage('Not signed in.');
+			return;
+		}
+
 		if (validateSubmission(formData)) {
-			// Ensure date is always stored in ISO 8601 format
-			//https://www.w3schools.com/jsref/jsref_toisostring.asp
+			// Normalize date: handle both string and Firestore Timestamp
+			let parsedDate = null;
 
-			if (formData.date) {
-				formData.date = new Date(formData.date).toISOString().split('T')[0];
+			if (formData.date instanceof Timestamp) {
+				parsedDate = formData.date; // already Timestamp ✅
+			} else if (typeof formData.date === 'string' && formData.date.trim() !== '') {
+				parsedDate = Timestamp.fromDate(new Date(formData.date)); // string → Date → Timestamp ✅
+			} else {
+				parsedDate = null; // optional: allow missing date
 			}
 
-			if (!editMode) {
-				// Add new expense to Firestore
-				formData.createdAt = serverTimestamp();
-				try {
-					const db = getFirestore(firebaseApp);
-					await addDoc(collection(db, 'expenses'), formData);
-					setErrorMessage('');
-				} catch (error) {
-					console.error('Error adding data to database', error);
-					setErrorMessage('Failed to add expense. Please try again.');
+			// Build clean payload
+			const payloadBase = {
+				title: String(formData.title || '').trim(),
+				amount: Number(formData.amount),
+				category: String(formData.category || '').trim(),
+				date: parsedDate,
+			};
+
+			try {
+				if (!editMode) {
+					// Add new expense
+					await addDoc(collection(db, 'users', user.uid, 'expenses'), {
+						...payloadBase,
+						createdAt: serverTimestamp(),
+					});
+				} else {
+					// Update existing expense
+					const expenseRef = doc(db, 'users', user.uid, 'expenses', editData.id);
+					await updateDoc(expenseRef, payloadBase);
 				}
-			} else if (editMode) {
-				// Update existing expense in Firestore
-				try {
-					const db = getFirestore(firebaseApp);
-					const expenseRef = doc(collection(db, 'expenses'), editData.id);
-					await updateDoc(expenseRef, formData);
-					setErrorMessage('');
-				} catch (error) {
-					console.error('Error editing data in database', error);
-					setErrorMessage('Failed to update expense. Please try again.');
-				}
+
+				setErrorMessage('');
+				handleCloseModal();
+			} catch (error) {
+				console.error('Firestore write error', error);
+				setErrorMessage(
+					editMode
+						? 'Failed to update expense. Please try again.'
+						: 'Failed to add expense. Please try again.'
+				);
 			}
-			handleCloseModal();
 		}
 	};
 
@@ -126,10 +138,19 @@ const ExpenseForm = ({ handleCloseModal, editData, editMode }) => {
 						label="Date"
 						type="date"
 						name="date"
-						value={formData.date}
+						value={
+							formData.date
+								? formData.date.seconds // Firestore Timestamp -> ISO date string
+									? new Date(formData.date.seconds * 1000)
+											.toISOString()
+											.split('T')[0]
+									: formData.date // Already a string for new expenses
+								: ''
+						}
 						handleOnChange={handleOnChange}
 						errorMessage={formError.date}
 					/>
+
 					{/* Select for category */}
 					<SelectFields
 						name="category"
