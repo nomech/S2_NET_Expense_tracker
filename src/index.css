@@ -14,8 +14,10 @@
 	--color-accent-border: #f94c5b;
 	--color-cancel: #6c757d;
 	--color-text: #ffffff;
+	--color-confirm: #055818;
 	--border-radius: 8px;
 	--font-main: 'Montserrat', sans-serif;
+
 
 	/* Spacing variables */
 	--space-xsmall: 0.25rem;
